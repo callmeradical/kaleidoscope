@@ -21,22 +21,19 @@ builds:
       - arm64
 
 archives:
-  - format: tar.gz
+  - formats: ["tar.gz"]
     name_template: "ks_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 
-brews:
+homebrew_casks:
   - repository:
       owner: callmeradical
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    name: kaleidoscope
+    name: ks-cli
+    binaries:
+      - ks
     homepage: "https://github.com/callmeradical/kaleidoscope"
     description: "AI agent front-end design toolkit"
-    license: "MIT"
-    install: |
-      bin.install "ks"
-    test: |
-      assert_match version.to_s, shell_output("#{bin}/ks --version")
 
 checksum:
   name_template: "checksums.txt"
