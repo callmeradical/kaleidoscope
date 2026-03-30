@@ -1,0 +1,50 @@
+version: 2
+
+project_name: kaleidoscope
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - main: .
+    binary: ks
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - format: tar.gz
+    name_template: "ks_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+brews:
+  - repository:
+      owner: callmeradical
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    name: kaleidoscope
+    homepage: "https://github.com/callmeradical/kaleidoscope"
+    description: "AI agent front-end design toolkit"
+    license: "MIT"
+    install: |
+      bin.install "ks"
+    test: |
+      assert_match version.to_s, shell_output("#{bin}/ks --version")
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"

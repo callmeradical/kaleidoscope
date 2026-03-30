@@ -4,9 +4,9 @@ import (
 	"os"
 
 	"github.com/go-rod/rod"
-	"github.com/lars/kaleidoscope/analysis"
-	"github.com/lars/kaleidoscope/browser"
-	"github.com/lars/kaleidoscope/output"
+	"github.com/callmeradical/kaleidoscope/analysis"
+	"github.com/callmeradical/kaleidoscope/browser"
+	"github.com/callmeradical/kaleidoscope/output"
 )
 
 func RunSpacing(args []string) {

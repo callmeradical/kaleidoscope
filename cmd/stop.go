@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/lars/kaleidoscope/browser"
-	"github.com/lars/kaleidoscope/output"
+	"github.com/callmeradical/kaleidoscope/browser"
+	"github.com/callmeradical/kaleidoscope/output"
 )
 
 func RunStop(_ []string) {

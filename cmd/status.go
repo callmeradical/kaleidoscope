@@ -5,8 +5,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/lars/kaleidoscope/browser"
-	"github.com/lars/kaleidoscope/output"
+	"github.com/callmeradical/kaleidoscope/browser"
+	"github.com/callmeradical/kaleidoscope/output"
 )
 
 func RunStatus(_ []string) {

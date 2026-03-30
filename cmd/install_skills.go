@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/lars/kaleidoscope/output"
+	"github.com/callmeradical/kaleidoscope/output"
 )
 
 //go:embed skills

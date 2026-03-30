@@ -1,4 +1,4 @@
-module github.com/lars/kaleidoscope
+module github.com/callmeradical/kaleidoscope
 
 go 1.26.1
 

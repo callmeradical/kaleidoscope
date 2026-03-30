@@ -440,6 +440,41 @@ Examples:
   ks catalog-show "date picker"
   ks catalog-show card`,
 
+	"report": `ks report [--output <path>] [--full-page] [--selector <sel>]
+
+Generate a self-contained HTML report with screenshots and UX findings.
+
+Options:
+  --output <path>     Save report to a specific path (default: auto-generated in .kaleidoscope/)
+  --full-page         Capture full scrollable page at each breakpoint
+  --selector <sel>    Scope analysis to a specific element
+
+What the report includes:
+  - Screenshots at 4 breakpoints (mobile, tablet, desktop, wide)
+  - Contrast violations (WCAG AA/AAA)
+  - Touch target violations (48x48px minimum)
+  - Typography warnings (font size, line height, fallbacks)
+  - Spacing inconsistencies
+  - Accessibility tree summary
+
+Output:
+  { "ok": true, "result": {
+    "path": "/path/to/report.html",
+    "url": "https://...",
+    "totalIssues": 5,
+    "summary": { "contrastViolations": 2, "touchViolations": 1, ... }
+  }}
+
+Examples:
+  ks report                           # Generate report for current page
+  ks report --output /tmp/review.html # Save to specific path
+  ks report --full-page               # Full-page screenshots
+  ks report --selector ".main"        # Scope analysis to .main
+
+Notes:
+  The HTML report is self-contained with base64-embedded screenshots.
+  Open it in any browser to view.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.

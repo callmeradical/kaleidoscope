@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/lars/kaleidoscope/cmd"
+	"github.com/callmeradical/kaleidoscope/cmd"
 )
 
 var version = "0.1.0"
@@ -38,6 +38,7 @@ UX Evaluation:
   audit [options]         Full UX/a11y audit
   contrast [selector]     WCAG color contrast check
   spacing [selector]      Spacing consistency analysis
+  report [options]        Generate HTML report with screenshots and findings
 
 Component Library:
   catalog <url>           Crawl a component library and build searchable index
@@ -108,6 +109,8 @@ func main() {
 		cmd.RunSpacing(cmdArgs)
 	case "breakpoints":
 		cmd.RunBreakpoints(cmdArgs)
+	case "report":
+		cmd.RunReport(cmdArgs)
 	case "catalog":
 		cmd.RunCatalog(cmdArgs)
 	case "catalog-search":

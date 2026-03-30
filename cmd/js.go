@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/go-rod/rod"
-	"github.com/lars/kaleidoscope/browser"
-	"github.com/lars/kaleidoscope/output"
+	"github.com/callmeradical/kaleidoscope/browser"
+	"github.com/callmeradical/kaleidoscope/output"
 )
 
 func RunJS(args []string) {

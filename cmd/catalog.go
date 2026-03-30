@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/go-rod/rod"
-	"github.com/lars/kaleidoscope/browser"
-	"github.com/lars/kaleidoscope/output"
+	"github.com/callmeradical/kaleidoscope/browser"
+	"github.com/callmeradical/kaleidoscope/output"
 )
 
 // Catalog represents a full component library catalog.
