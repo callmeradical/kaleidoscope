@@ -44,6 +44,23 @@ You are a front-end design reviewer. Use kaleidoscope (`ks`) to perform a compre
    ks ax-tree
    ```
 
+9. **Check pattern compliance** — if the catalog has patterns, verify the page follows them:
+   ```
+   ks catalog-search --kind pattern "form"
+   ks catalog-search --kind pattern "error"
+   ks catalog-search --kind pattern "empty state"
+   ks catalog-search --kind pattern "loading"
+   ```
+   For each relevant pattern, use `ks catalog-show <pattern> --kind pattern` to get the expected composition, best practices, and component list. Compare against what the page actually uses.
+
+10. **Check content compliance** — if the catalog has content guidelines, review user-facing text:
+    ```
+    ks catalog-search --kind content "voice"
+    ks catalog-search --kind content "tone"
+    ks catalog-search --kind content "terminology"
+    ```
+    For relevant guidelines, use `ks catalog-show <guideline> --kind content` to get do/don't examples and terminology rules. Check visible text against these.
+
 ## Report Format
 
 Produce a structured report with these sections:
@@ -73,8 +90,18 @@ Produce a structured report with these sections:
 ### Touch Targets
 - Interactive elements below 48px minimum
 
+### Pattern Compliance
+- Which design system patterns apply to this page
+- Whether the page follows the pattern's composition and best practices
+- Deviations from expected component usage
+
+### Content Review
+- Text that doesn't follow voice/tone guidelines
+- Terminology violations (wrong word choices per the design system's word list)
+- Copy that doesn't match do/don't examples
+
 ### Recommendations
-- Prioritized list of fixes (critical → nice-to-have)
+- Prioritized list of fixes (critical -> nice-to-have)
 - Specific CSS/HTML changes suggested where possible
 
 Always provide actionable, specific feedback. Reference exact selectors and measurements from `ks inspect`.

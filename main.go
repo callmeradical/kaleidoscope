@@ -40,10 +40,11 @@ UX Evaluation:
   spacing [selector]      Spacing consistency analysis
   report [options]        Generate HTML report with screenshots and findings
 
-Component Library:
-  catalog <url>           Crawl a component library and build searchable index
-  catalog-search <query>  Search the catalog by name, category, or use case
-  catalog-show <name>     Show full details of a cataloged component
+Design System Catalog:
+  catalog <url>              Crawl a design system site and build searchable index
+  catalog-repo <repo-url>    Catalog from a git repository (tokens, icons, docs)
+  catalog-search <query>     Search the catalog (--kind to filter by type)
+  catalog-show <name>        Show full details of a cataloged entry
 
 Skills:
   install-skills          Install Claude Code skills for front-end design
@@ -117,6 +118,8 @@ func main() {
 		cmd.RunCatalogSearch(cmdArgs)
 	case "catalog-show":
 		cmd.RunCatalogShow(cmdArgs)
+	case "catalog-repo":
+		cmd.RunCatalogRepo(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
 	default:

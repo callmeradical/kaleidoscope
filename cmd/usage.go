@@ -352,93 +352,146 @@ Notes:
 
 	"catalog": `ks catalog <url>
 
-Crawl a component library website and build a searchable catalog.
+Crawl a design system website and build a searchable catalog.
+Discovers components, foundations (tokens), patterns, content guidelines, and icons.
 
 Arguments:
-  url    The root URL of the component library (required)
+  url    The root URL of the design system (required)
 
 Output:
   { "ok": true, "result": {
     "name": "Library Name",
-    "componentCount": 42,
-    "categories": ["components", "forms", ...],
-    "catalogPath": "/path/to/catalog.json",
-    "screenshotDir": "/path/to/screenshots/"
+    "source": "web",
+    "entryCount": 42,
+    "kinds": ["component", "foundation", "pattern", "content", "icon"],
+    "categories": ["components", "foundations", ...],
+    "catalogPath": "/path/to/catalog.json"
   }}
 
-What gets cataloged for each component:
-  - Name, URL, category, description
-  - Variants/examples (section headings)
-  - Props (from tables on the page)
-  - Code snippets (first 5 code blocks)
-  - Design tokens used (colors, font sizes, spacing, border radii)
-  - Related components (cross-links)
-  - Screenshot
+Entry kinds and what gets extracted:
+  component   - variants, props, code snippets, design tokens, screenshot
+  foundation  - token name/value pairs, usage guidance, CSS snippets
+  pattern     - problem solved, when to use, composed-of components, best practices
+  content     - guidelines, do/don't examples, terminology word lists
+  icon        - icon name, sizes, SVG content, tags
 
 Examples:
+  ks catalog https://helios.hashicorp.design
   ks catalog https://flowbite-svelte.com
   ks catalog https://ui.shadcn.com
 
 Notes:
-  Discovers component pages by scanning navigation links.
+  Discovers pages by scanning navigation links and classifying by URL path.
   Progress is printed to stderr during crawling.
   Catalog is saved to .kaleidoscope/catalog/catalog.json`,
 
-	"catalog-search": `ks catalog-search <query>
+	"catalog-repo": `ks catalog-repo <repo-url> [--ref <branch/tag>]
 
-Search the component catalog by name, category, description, variants, or props.
+Catalog a design system from its git repository. Extracts tokens, icons,
+component docs, and content guidelines from the source code.
+
+Arguments:
+  repo-url    Git repository URL (required)
+
+Options:
+  --ref <branch/tag>    Checkout a specific branch or tag (default: default branch)
+
+Output:
+  { "ok": true, "result": {
+    "name": "design-system",
+    "source": "repo",
+    "entryCount": 150,
+    "kinds": ["foundation", "icon", "component"],
+    "catalogPath": "/path/to/catalog.json"
+  }}
+
+What gets extracted:
+  - Token files: *.tokens.json (Style Dictionary), CSS custom properties
+  - Icons: SVG files in icon directories (name, sizes, SVG content)
+  - Components: README.md in component directories (name, description)
+  - Content: Markdown files in content/patterns/guidelines directories
+
+Examples:
+  ks catalog-repo https://github.com/hashicorp/design-system
+  ks catalog-repo https://github.com/primer/primitives --ref main
+
+Notes:
+  Does NOT require the browser (no ks start needed).
+  Performs a shallow clone to a temp directory, which is cleaned up after.
+  Useful for JS-heavy design system sites that don't crawl well.`,
+
+	"catalog-search": `ks catalog-search <query> [--kind <type>]
+
+Search the catalog by name, category, description, and kind-specific fields.
 
 Arguments:
   query    Search terms (required)
 
+Options:
+  --kind <type>    Filter by entry kind: component, foundation, pattern, content, icon
+
 Output:
   { "ok": true, "result": {
     "query": "button",
+    "kind": "",
     "total": 3,
     "results": [
-      { "name": "Buttons", "category": "components", "description": "...", "score": 15, ... },
+      { "name": "Buttons", "kind": "component", "category": "components", "score": 15, ... },
       ...
     ]
   }}
 
-Scoring:
+Scoring (universal):
   Name match:        +10
   Category match:    +5
   Description match: +3
-  Variant match:     +2
-  Prop match:        +1
+
+Scoring (kind-specific):
+  Component:   variant name +2, prop name +1
+  Foundation:  token name +2, token value +1
+  Icon:        icon name +3, tag +2
+  Pattern:     problem solved +3, composed-of +2
+  Content:     term +3, guideline text +2
 
 Examples:
   ks catalog-search button
-  ks catalog-search "date picker"
-  ks catalog-search form
-  ks catalog-search navigation`,
+  ks catalog-search --kind foundation color
+  ks catalog-search --kind icon arrow
+  ks catalog-search --kind pattern "empty state"
+  ks catalog-search --kind content "error message"`,
 
-	"catalog-show": `ks catalog-show <component-name>
+	"catalog-show": `ks catalog-show <name> [--kind <type>]
 
-Show full details of a cataloged component.
+Show full details of a cataloged entry.
 
 Arguments:
-  component-name    Name of the component (case-insensitive, partial match)
+  name    Name of the entry (case-insensitive, partial match)
 
-Output:
-  { "ok": true, "result": {
-    "name": "Buttons",
-    "url": "https://...",
-    "category": "components",
-    "description": "...",
-    "variants": [{ "name": "Default" }, { "name": "Pill" }, ...],
-    "props": [{ "name": "color", "type": "string", "default": "blue" }],
-    "usageSnippets": ["<Button color='blue'>Click</Button>"],
-    "screenshot": "/path/to/screenshot.png",
-    "relations": ["Button group", "Icon"],
-    "tokens": { "colors": [...], "fontSizes": [...], "spacing": [...] }
-  }}
+Options:
+  --kind <type>    Filter by kind to disambiguate (e.g., "Typography" may be both foundation and component)
+
+Output varies by kind:
+
+  component:
+    variants, props, usageSnippets, tokens
+
+  foundation:
+    tokenCategory, tokens (name/value pairs), usageGuidance, cssSnippets
+
+  pattern:
+    problemSolved, whenToUse, whenNotToUse, composedOf, bestPractices, usageSnippets
+
+  content:
+    contentType, guidelines, doExamples, dontExamples, wordList
+
+  icon:
+    iconName, sizes, svg, usageNote, tags
 
 Examples:
   ks catalog-show Buttons
-  ks catalog-show "date picker"
-  ks catalog-show card`,
+  ks catalog-show --kind foundation "Color"
+  ks catalog-show --kind pattern "Empty State"
+  ks catalog-show --kind icon "arrow-right"`,
 
 	"report": `ks report [--output <path>] [--full-page] [--selector <sel>]
 

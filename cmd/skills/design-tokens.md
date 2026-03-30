@@ -47,6 +47,17 @@ $ARGUMENTS should be the URL to analyze.
    ks js "(() => { const shadows = new Set(); const els = document.querySelectorAll('*'); for (const el of els) { const s = getComputedStyle(el).boxShadow; if (s && s !== 'none') shadows.add(s); } return [...shadows]; })()"
    ```
 
+9. **Cross-reference with the catalog** — if a catalog exists with foundation entries, compare your extracted tokens against the cataloged ones:
+   ```
+   ks catalog-search --kind foundation color
+   ks catalog-search --kind foundation typography
+   ks catalog-search --kind foundation spacing
+   ```
+   For each foundation entry, use `ks catalog-show <name> --kind foundation` to get canonical tokens. Then:
+   - Map extracted values to named tokens (e.g., `rgb(0, 112, 243)` maps to `--color-primary-500`)
+   - Flag orphan values that don't match any cataloged token
+   - Suggest the nearest token for close-but-not-exact matches
+
 ## Output Format
 
 Produce a design tokens file in CSS custom properties format:
@@ -92,3 +103,5 @@ Produce a design tokens file in CSS custom properties format:
 ```
 
 Also produce a JSON tokens file for programmatic use. Group tokens by category. Name them semantically, not by their values.
+
+If catalog foundations exist, note which extracted values match named tokens and which are orphans that may indicate design system drift.

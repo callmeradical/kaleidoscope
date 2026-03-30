@@ -16,13 +16,21 @@ $ARGUMENTS should be the URL to check.
    ks open <url>
    ```
 
-3. **Take screenshots at all breakpoints**:
+3. **Check for layout foundation tokens** — if the catalog has layout/grid foundations, load them as reference:
+   ```
+   ks catalog-search --kind foundation layout
+   ks catalog-search --kind foundation grid
+   ks catalog-search --kind foundation breakpoint
+   ```
+   If found, use `ks catalog-show <name> --kind foundation` to get the design system's defined breakpoints, grid columns, and max-widths. Verify the page matches these.
+
+4. **Take screenshots at all breakpoints**:
    ```
    ks breakpoints
    ```
    This captures mobile (375x812), tablet (768x1024), desktop (1280x720), and wide (1920x1080).
 
-4. **Review each screenshot** — look for:
+5. **Review each screenshot** — look for:
    - Horizontal overflow / horizontal scrollbar
    - Text truncation or overlap
    - Images not scaling properly
@@ -30,7 +38,7 @@ $ARGUMENTS should be the URL to check.
    - Touch targets too small on mobile
    - Content not utilizing space on wide screens
 
-5. **For each breakpoint, inspect key elements**:
+6. **For each breakpoint, inspect key elements**:
    ```
    ks viewport mobile
    ks layout --depth 3
@@ -40,7 +48,7 @@ $ARGUMENTS should be the URL to check.
    ```
    Repeat for tablet, desktop, wide.
 
-6. **Check for specific responsive issues**:
+7. **Check for specific responsive issues**:
    ```
    ks js "document.documentElement.scrollWidth > document.documentElement.clientWidth"
    ```
@@ -51,7 +59,7 @@ $ARGUMENTS should be the URL to check.
    ```
    Find elements causing horizontal overflow.
 
-7. **Test touch targets at mobile**:
+8. **Test touch targets at mobile**:
    ```
    ks viewport mobile
    ks audit
@@ -62,10 +70,11 @@ $ARGUMENTS should be the URL to check.
 
 ### Breakpoint Summary
 
-For each breakpoint (mobile → wide):
+For each breakpoint (mobile -> wide):
 - Screenshot
 - Layout assessment (does it work?)
 - Specific issues found
+- Whether it matches the design system's defined breakpoints (if catalog foundations exist)
 
 ### Critical Issues
 - Elements that break the layout

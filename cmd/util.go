@@ -42,7 +42,8 @@ func getNonFlagArgs(args []string) []string {
 			// If it's a flag that takes a value, skip next arg too
 			if a == "--selector" || a == "--output" || a == "--depth" ||
 				a == "--width" || a == "--height" || a == "--format" ||
-				a == "--quality" || a == "--wait-until" || a == "--min-size" {
+				a == "--quality" || a == "--wait-until" || a == "--min-size" ||
+				a == "--kind" || a == "--ref" {
 				skip = true
 			}
 			continue

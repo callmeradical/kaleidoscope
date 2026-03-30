@@ -28,7 +28,7 @@ $ARGUMENTS should be the URL or file path to audit, or a selector to scope the a
    ```
    Check for:
    - Missing landmark roles (banner, navigation, main, contentinfo)
-   - Headings that skip levels (h1 → h3 without h2)
+   - Headings that skip levels (h1 -> h3 without h2)
    - Interactive elements without accessible names
    - Images without alt text
    - Form inputs without labels
@@ -59,6 +59,17 @@ $ARGUMENTS should be the URL or file path to audit, or a selector to scope the a
    ks js "(() => { const issues = []; document.querySelectorAll('[aria-labelledby]').forEach(el => { const id = el.getAttribute('aria-labelledby'); if (!document.getElementById(id)) issues.push('Missing labelledby target: #' + id); }); document.querySelectorAll('[aria-describedby]').forEach(el => { const id = el.getAttribute('aria-describedby'); if (!document.getElementById(id)) issues.push('Missing describedby target: #' + id); }); return issues; })()"
    ```
 
+9. **Check icon accessibility** — if the page uses icons, verify they are properly labeled:
+   ```
+   ks js "(() => { const issues = []; document.querySelectorAll('svg, [class*=\"icon\"], i[class]').forEach(el => { const hasLabel = el.getAttribute('aria-label') || el.getAttribute('aria-labelledby') || el.getAttribute('title') || el.getAttribute('aria-hidden') === 'true' || el.getAttribute('role') === 'presentation'; if (!hasLabel) issues.push({ tag: el.tagName, class: el.className, text: 'Missing aria-label or aria-hidden' }); }); return issues; })()"
+   ```
+   If the catalog has icons, check usage guidance:
+   ```
+   ks catalog-search --kind icon <icon-name>
+   ks catalog-show <icon-name> --kind icon
+   ```
+   Follow the icon's `usageNote` for accessibility recommendations.
+
 ## Fix Strategy
 
 For each issue found:
@@ -70,6 +81,8 @@ For each issue found:
    - Missing alt? Add descriptive alt text
    - Low contrast? Adjust color to meet 4.5:1 (normal) or 3:1 (large)
    - Small touch target? Increase padding/min-height/min-width to 48px
+   - Decorative icon? Add `aria-hidden="true"` and `role="presentation"`
+   - Meaningful icon? Add `aria-label` describing the action or meaning
 
 3. **Apply the fix** in the source code
 
@@ -87,6 +100,7 @@ For each issue found:
 |----------|-------|---------|----------------|
 | Critical | Low contrast (2.1:1) | `.nav-link` | 1.4.3 |
 | Serious  | Missing alt text | `img.hero` | 1.1.1 |
+| Serious  | Icon missing aria-label | `svg.icon-menu` | 1.1.1 |
 | ...      | ...   | ...     | ...            |
 
 ### Fixes Applied
