@@ -40,6 +40,17 @@ UX Evaluation:
   spacing [selector]      Spacing consistency analysis
   report [options]        Generate HTML report with screenshots and findings
 
+Project & Snapshots:
+  init --name <n> --base-url <u> [--paths /,/p]   Create .ks-project.json
+  project-add <path>      Add a URL path to the project
+  project-remove <path>   Remove a URL path from the project
+  project-show            Show current project config
+  snapshot                Capture screenshots + audit for all project URLs
+  history                 List all snapshots
+  diff [snapshot-id]      Compare snapshot to baseline
+  diff-report [id] [--output path]  Generate HTML diff report
+  accept [snapshot-id] [--url /path]  Set snapshot as baseline
+
 Design System Catalog:
   catalog <url>              Crawl a design system site and build searchable index
   catalog-repo <repo-url>    Catalog from a git repository (tokens, icons, docs)
@@ -48,6 +59,7 @@ Design System Catalog:
 
 Skills:
   install-skills          Install Claude Code skills for front-end design
+  install-hook            Install pre-commit git hook for regression detection
 
 Options:
   --human                 Human-readable output (default: JSON)
@@ -122,6 +134,26 @@ func main() {
 		cmd.RunCatalogRepo(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
+	case "init":
+		cmd.RunInit(cmdArgs)
+	case "project-add":
+		cmd.RunProjectAdd(cmdArgs)
+	case "project-remove":
+		cmd.RunProjectRemove(cmdArgs)
+	case "project-show":
+		cmd.RunProjectShow(cmdArgs)
+	case "snapshot":
+		cmd.RunSnapshot(cmdArgs)
+	case "history":
+		cmd.RunHistory(cmdArgs)
+	case "diff":
+		cmd.RunDiff(cmdArgs)
+	case "diff-report":
+		cmd.RunDiffReport(cmdArgs)
+	case "accept":
+		cmd.RunAccept(cmdArgs)
+	case "install-hook":
+		cmd.RunInstallHook(cmdArgs)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown command: %s\nRun 'ks --help' for usage.\n", command)
 		os.Exit(2)

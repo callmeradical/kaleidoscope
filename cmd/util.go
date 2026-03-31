@@ -43,7 +43,8 @@ func getNonFlagArgs(args []string) []string {
 			if a == "--selector" || a == "--output" || a == "--depth" ||
 				a == "--width" || a == "--height" || a == "--format" ||
 				a == "--quality" || a == "--wait-until" || a == "--min-size" ||
-				a == "--kind" || a == "--ref" {
+				a == "--kind" || a == "--ref" ||
+				a == "--name" || a == "--base-url" || a == "--paths" || a == "--url" {
 				skip = true
 			}
 			continue
