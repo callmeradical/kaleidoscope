@@ -142,7 +142,7 @@ func RunDiffReport(args []string) {
 	}
 
 	data := map[string]any{
-		"BaselineID": getBaselineIDForDisplay(baselines),
+		"BaselineID": getAnyBaselineID(baselines),
 		"CurrentID":  snapshotID,
 		"Project":    proj.Name,
 		"Sections":   sections,
@@ -161,7 +161,7 @@ func RunDiffReport(args []string) {
 
 	output.Success("diff-report", map[string]any{
 		"path":     outputPath,
-		"baseline": getBaselineIDForDisplay(baselines),
+		"baseline": getAnyBaselineID(baselines),
 		"current":  snapshotID,
 		"urls":     len(sections),
 	})

@@ -101,7 +101,7 @@ func RunDiff(args []string) {
 	}
 
 	result := diffpkg.Result{
-		BaselineID:  getBaselineIDForDisplay(baselines),
+		BaselineID:  getAnyBaselineID(baselines),
 		CurrentID:   snapshotID,
 		URLs:        urlDiffs,
 		Regressions: hasRegressions,
@@ -114,7 +114,7 @@ func RunDiff(args []string) {
 	}
 }
 
-func getBaselineIDForDisplay(b snapshot.Baselines) string {
+func getAnyBaselineID(b snapshot.Baselines) string {
 	for _, id := range b {
 		return id
 	}
