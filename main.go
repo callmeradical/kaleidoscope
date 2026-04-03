@@ -46,6 +46,12 @@ Design System Catalog:
   catalog-search <query>     Search the catalog (--kind to filter by type)
   catalog-show <name>        Show full details of a cataloged entry
 
+Project Config:
+  init --name <n> --base-url <u> --paths <p>  Create .ks-project.json
+  project-add <path>                           Add a path to the project
+  project-remove <path>                        Remove a path from the project
+  project-show                                 Show the project config as JSON
+
 Skills:
   install-skills          Install Claude Code skills for front-end design
 
@@ -120,6 +126,14 @@ func main() {
 		cmd.RunCatalogShow(cmdArgs)
 	case "catalog-repo":
 		cmd.RunCatalogRepo(cmdArgs)
+	case "init":
+		cmd.RunInit(cmdArgs)
+	case "project-add":
+		cmd.RunProjectAdd(cmdArgs)
+	case "project-remove":
+		cmd.RunProjectRemove(cmdArgs)
+	case "project-show":
+		cmd.RunProjectShow(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
 	default:

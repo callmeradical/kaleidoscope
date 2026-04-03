@@ -528,6 +528,75 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"init": `ks init --name <name> --base-url <url> --paths <paths>
+
+Create a .ks-project.json in the current directory.
+
+Required options:
+  --name <name>        Project name
+  --base-url <url>     Base URL of the site (e.g. http://localhost:3000)
+  --paths <paths>      Comma-separated list of URL paths to track (e.g. /,/dashboard)
+
+Output:
+  { "ok": true, "result": { "path": ".ks-project.json", "name": "...", "baseURL": "...", "paths": [...], "breakpoints": [...] } }
+
+Examples:
+  ks init --name my-app --base-url http://localhost:3000 --paths /,/dashboard
+  ks init --name docs --base-url https://docs.example.com --paths /,/guides,/api
+
+Notes:
+  Returns an error if .ks-project.json already exists in the current directory.
+  Breakpoints default to the four standard presets (mobile 375x812, tablet 768x1024, desktop 1280x720, wide 1920x1080).`,
+
+	"project-add": `ks project-add <path>
+
+Add a URL path to the project config.
+
+Arguments:
+  path    URL path to add (e.g. /settings)
+
+Output:
+  { "ok": true, "result": { "path": "/settings", "paths": [...] } }
+
+Examples:
+  ks project-add /settings
+  ks project-add /about
+
+Notes:
+  Requires .ks-project.json to exist. Run 'ks init' first.
+  Returns an error if the path already exists in the project.`,
+
+	"project-remove": `ks project-remove <path>
+
+Remove a URL path from the project config.
+
+Arguments:
+  path    URL path to remove (e.g. /settings)
+
+Output:
+  { "ok": true, "result": { "removed": "/settings", "paths": [...] } }
+
+Examples:
+  ks project-remove /settings
+  ks project-remove /about
+
+Notes:
+  Requires .ks-project.json to exist. Run 'ks init' first.
+  Returns an error if the path does not exist in the project.`,
+
+	"project-show": `ks project-show
+
+Show the full project config as structured JSON.
+
+Output:
+  { "ok": true, "result": { "name": "...", "baseURL": "...", "paths": [...], "breakpoints": [...] } }
+
+Examples:
+  ks project-show
+
+Notes:
+  Requires .ks-project.json to exist. Run 'ks init' first.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.
