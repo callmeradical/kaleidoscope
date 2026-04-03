@@ -547,6 +547,33 @@ Output:
 Notes:
   Skills are prefixed with ks- to namespace them.
   Invoke in Claude Code with /ks-design-review, /ks-build-component, etc.`,
+
+"install-hook": `ks install-hook — Install a git pre-commit hook for automatic regression checks
+
+Usage: ks install-hook [--force]
+
+Options:
+  --force    Overwrite an existing pre-commit hook without warning
+
+Description:
+  Writes an executable shell script to .git/hooks/pre-commit that runs
+  'ks snapshot' and 'ks diff' before every commit. Output is structured
+  JSON sent to stdout for agent consumption. The hook always exits 0
+  (advisory/non-blocking) so it never blocks a commit.
+
+  Requires .ks-project.json to exist in the current directory.
+  Chrome is auto-started if not already running.
+  If project URLs are unreachable the hook fails gracefully and logs a
+  structured error to stdout.
+
+Examples:
+  ks install-hook             # Install hook (fails if one already exists)
+  ks install-hook --force     # Install hook, overwriting any existing hook
+
+Notes:
+  - .ks-project.json is committed to the repo; .kaleidoscope/ is gitignored.
+  - The hook is advisory: it never blocks a commit regardless of diff results.
+  - The agent reads stdout JSON to decide whether to alert the developer.`,
 }
 
 // PrintUsage prints detailed usage for a command and returns true if --usage was found.
