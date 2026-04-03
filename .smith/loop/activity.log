@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-03 19:13:12] iteration-1: created snapshot package (snapshot.go, index.go, store.go), diff engine (engine.go), and test files (store_test.go, engine_test.go) for US-003; go test ./... passes
+[2026-04-03 19:15:27] cmd/diff.go created (RunDiff CLI), wired into main.go and usage.go; go test ./... PASS, go build ./... PASS; US-003 done
