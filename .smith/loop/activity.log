@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-03 19:08:45] US-007 iteration 1: wrote 6 failing tests in cmd/install_hook_test.go and stub cmd/install_hook.go; set story status to in_progress; go test ./... confirms tests fail as expected (compilation OK)
+[2026-04-03 19:11:58] US-007: Implemented RunInstallHook in cmd/install_hook.go; added install-hook case to main.go switch; added usage entry to cmd/usage.go; go test ./... PASS
