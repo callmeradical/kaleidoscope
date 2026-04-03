@@ -528,6 +528,39 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"diff-report": `ks diff-report [snapshot-id] [--output path]
+
+Generate a self-contained side-by-side HTML diff report comparing a snapshot against its baseline.
+
+Arguments:
+  snapshot-id    ID of the snapshot to compare (default: "latest")
+
+Options:
+  --output <path>    Save report to a specific path (default: .kaleidoscope/diff-report.html)
+
+What the report includes:
+  - Side-by-side layout: baseline (left), diff overlay (center), current (right) per URL per breakpoint
+  - Audit delta tables showing per-category before/after/delta counts
+  - Element change lists with selector, role, name, change type, and details
+  - Screenshots are base64-embedded for a self-contained HTML file
+
+Output:
+  { "ok": true, "result": {
+    "path": "/path/to/diff-report.html",
+    "baselineId": "snap-abc",
+    "currentId": "snap-xyz",
+    "urlCount": 3
+  }}
+
+Examples:
+  ks diff-report                           # Compare latest snapshot vs baseline
+  ks diff-report snap-20260403-120000      # Compare a specific snapshot vs baseline
+  ks diff-report --output /tmp/diff.html   # Save to custom path
+
+Notes:
+  Run 'ks snapshot' to create a snapshot and 'ks baseline set' to set a baseline first.
+  Exit code 2 if no snapshots or no baseline exist.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.

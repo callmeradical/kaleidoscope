@@ -39,6 +39,7 @@ UX Evaluation:
   contrast [selector]     WCAG color contrast check
   spacing [selector]      Spacing consistency analysis
   report [options]        Generate HTML report with screenshots and findings
+  diff-report [snap-id]   Side-by-side HTML diff report vs baseline
 
 Design System Catalog:
   catalog <url>              Crawl a design system site and build searchable index
@@ -112,6 +113,8 @@ func main() {
 		cmd.RunBreakpoints(cmdArgs)
 	case "report":
 		cmd.RunReport(cmdArgs)
+	case "diff-report":
+		cmd.RunDiffReport(cmdArgs)
 	case "catalog":
 		cmd.RunCatalog(cmdArgs)
 	case "catalog-search":
