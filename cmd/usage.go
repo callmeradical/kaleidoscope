@@ -528,6 +528,49 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"diff": `ks diff [snapshot-id] [--local]
+
+Compare a snapshot against the default baseline and report audit and element changes.
+
+Arguments:
+  snapshot-id    ID of the snapshot to compare (default: latest snapshot)
+
+Options:
+  --local    Use project-local state (.kaleidoscope/) instead of ~/.kaleidoscope/
+
+Output:
+  { "ok": true, "result": {
+    "snapshotId": "snap-123",
+    "baselineId": "snap-001",
+    "hasRegressions": true,
+    "audit": {
+      "categories": { "contrast": { "baseline": 2, "target": 3, "delta": 1 }, ... },
+      "newIssues": [ { "category": "contrast", "selector": "p", "message": "..." } ],
+      "resolvedIssues": []
+    },
+    "elements": {
+      "appeared": [],
+      "disappeared": [ { "role": "button", "name": "Submit" } ],
+      "moved": [],
+      "resized": []
+    }
+  }}
+
+Exit codes:
+  0    No regressions detected
+  1    Regressions detected (new audit issues, disappeared/moved/resized elements)
+  2    Error (no baseline, snapshot not found, etc.)
+
+Examples:
+  ks diff                   # Compare latest snapshot against baseline
+  ks diff snap-456          # Compare a specific snapshot against baseline
+  ks diff --local           # Use project-local state
+
+Notes:
+  Requires a default baseline to be set (baselines.json must exist).
+  Element matching uses semantic identity (role + name), not CSS selectors.
+  Position/size changes below 4px threshold are ignored.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.
