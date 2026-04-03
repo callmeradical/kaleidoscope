@@ -78,6 +78,8 @@ func main() {
 	}
 
 	switch command {
+	case "accept":
+		cmd.RunAccept(cmdArgs)
 	case "start":
 		cmd.RunStart(cmdArgs)
 	case "stop":

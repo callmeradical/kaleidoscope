@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-03 19:09:28] iteration-1: wrote failing tests for US-005 (baseline pkg + cmd/accept). 14 new tests, 0 regressions. snapshot stub + baseline stub + accept stub created.
+[2026-04-03 19:11:44] US-005 iteration 2: implemented baseline.go and cmd/accept.go; go test ./... passes
