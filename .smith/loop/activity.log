@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-03 19:12:29] run-id=kal-d8f46-autofix-kal-960c4-github-callmer-us-001 iter=1 action=tests-written story=US-001 files=project/project.go,project/project_test.go,cmd/init.go,cmd/init_test.go,cmd/project.go,cmd/project_test.go,cmd/testhelper_test.go result=go-test-pass
+[2026-04-03 19:13:57] iteration-2: verified all US-001 tests pass (23 tests, go test ./... -count=1 PASS); story marked done
