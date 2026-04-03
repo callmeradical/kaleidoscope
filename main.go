@@ -46,6 +46,9 @@ Design System Catalog:
   catalog-search <query>     Search the catalog (--kind to filter by type)
   catalog-show <name>        Show full details of a cataloged entry
 
+Snapshots:
+  diff [options]             Compare baseline vs current snapshot screenshots
+
 Skills:
   install-skills          Install Claude Code skills for front-end design
 
@@ -122,6 +125,8 @@ func main() {
 		cmd.RunCatalogRepo(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
+	case "diff":
+		cmd.RunDiff(cmdArgs)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown command: %s\nRun 'ks --help' for usage.\n", command)
 		os.Exit(2)

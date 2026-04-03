@@ -528,6 +528,33 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"diff": `ks diff --baseline <snapshot.json> --current <snapshot.json>
+
+Compares baseline and current snapshots for screenshot pixel differences.
+
+Flags:
+  --baseline <path>   Path to the baseline snapshot JSON file
+  --current <path>    Path to the current snapshot JSON file
+
+Output fields (screenshotDiffs[]):
+  url                   Page URL for this diff
+  breakpoint            Breakpoint name (mobile, tablet, desktop, wide)
+  baselinePath          Path to baseline screenshot PNG
+  currentPath           Path to current screenshot PNG
+  diffPath              Path to diff overlay PNG (empty if mismatched dimensions)
+  similarity            Score from 0.0 (fully different) to 1.0 (identical)
+  regressed             true if similarity < screenshotThreshold in .ks-project.json
+  mismatchedDimensions  true if images had different pixel dimensions
+
+screenshotRegressed:  true if any screenshot pair regressed
+
+Examples:
+  ks diff --baseline .kaleidoscope/snapshots/baseline.json --current .kaleidoscope/snapshots/current.json
+
+Notes:
+  Similarity threshold defaults to 0.99 (configurable via screenshotThreshold in .ks-project.json).
+  Diff overlay PNGs are written to the same directory as the current snapshot JSON.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.

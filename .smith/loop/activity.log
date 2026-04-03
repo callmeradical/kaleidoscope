@@ -1,0 +1,7 @@
+# Activity Log
+
+## Events
+
+[2026-04-03 19:10:36] US-004 tests-only iteration: created failing tests for Screenshot Pixel Diff (analysis/pixeldiff_test.go, stubs in analysis/pixeldiff.go, analysis/pixeldiff_writer.go, snapshot/snapshot.go)
+[2026-04-03 19:11:41] US-004 iteration 2: implemented CompareImages in analysis/pixeldiff.go — all 9 tests pass, go test ./... PASS
+[2026-04-03 19:14:08] iteration-3: implemented cmd/diff.go (RunDiff), wired main.go, added usage entry; go test ./... passes, go build clean; US-004 marked done
