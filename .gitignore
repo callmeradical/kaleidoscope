@@ -1,4 +1,6 @@
 ks
 kaleidoscope
-.kaleidoscope/
+.kaleidoscope/snapshots/
+.kaleidoscope/screenshots/
+.kaleidoscope/state.json
 dist/

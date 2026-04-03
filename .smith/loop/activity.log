@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-03 19:13:48] iteration-1: wrote failing tests for US-002 snapshot/store (URLDir, GenerateID) and full implementations for project/config, snapshot/baseline — TDD red phase established
+[2026-04-03 19:16:58] US-002 iteration 2: implemented URLDir, GenerateID, capture_helpers, snapshot, history commands; go test ./... PASS
