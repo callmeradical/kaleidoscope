@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:11:24] iteration-1: created snapshot package with stub implementations and failing tests for US-002 (urlkey, git, store, types)
+[2026-04-04 03:15:04] Implemented US-002 production code: URLToKey, ShortCommitHash, store functions, cmd/project.go, cmd/snapshot.go, cmd/history.go, refactored audit/axtree/breakpoints; go test ./... PASS
