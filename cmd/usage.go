@@ -528,6 +528,27 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"install-hook": `ks install-hook [--force]
+
+Write a git pre-commit hook that automatically runs snapshot and diff checks.
+
+Options:
+  --force    Overwrite an existing pre-commit hook
+
+Output:
+  { "ok": true, "result": { "path": ".git/hooks/pre-commit", "message": "..." } }
+
+Behavior:
+  - Fails if no .ks-project.json exists in the current directory
+  - Warns and exits if a pre-commit hook already exists (use --force to replace)
+  - The installed hook: auto-starts Chrome, runs 'ks snapshot', runs 'ks diff'
+  - Hook always exits 0 (advisory/non-blocking)
+  - Hook outputs diff JSON to stdout for agent consumption
+
+Examples:
+  ks install-hook           # Install hook (fails if one exists)
+  ks install-hook --force   # Overwrite existing hook`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.
