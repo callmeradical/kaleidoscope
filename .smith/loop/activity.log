@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 02:28:27] iteration-1: created snapshot/, diff/, report/diff_* packages + all unit tests; go test ./... PASS
+[2026-04-04 02:30:04] Implemented cmd/diff_report.go (RunDiffReport) and wired diff-report case in main.go; go build ./... and go test ./... both pass
