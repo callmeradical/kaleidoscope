@@ -19,3 +19,24 @@
 
 ### Status
 - US-004: in_progress (tests written, implementation in snapshot/pixeldiff.go; cmd/diff.go integration pending next iteration)
+
+## Run: kal-9f4f2-github-callmeradical-kaleidoscop-us-004 | Iteration 2
+
+### Actions
+- Created `snapshot/manifest.go`: `SnapshotManifest`, `ScreenshotEntry` types with `LoadManifest` helper
+- Created `cmd/diff.go`: `RunDiff` function with `--baseline`, `--current`, `--threshold` flags; `DiffOutput` and `ScreenshotDiffs` structs; screenshot pair matching loop calling `snapshot.DiffScreenshotFiles`
+- Registered `case "diff": cmd.RunDiff(cmdArgs)` in `main.go`
+- Added `--baseline`, `--current`, `--threshold` to `getNonFlagArgs` skip list in `cmd/util.go`
+
+### Quality Gate
+- `go build ./...` → PASS
+- `go test ./...` → PASS (snapshot: ok, all 10 tests)
+
+### Files Changed
+- `snapshot/manifest.go` (created)
+- `cmd/diff.go` (created)
+- `main.go` (added diff case)
+- `cmd/util.go` (added --baseline, --current, --threshold to flag skip list)
+
+### Status
+- US-004: done

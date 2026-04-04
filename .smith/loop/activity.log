@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 01:50:47] iteration-1: created snapshot/pixeldiff.go and pixeldiff_test.go; go test ./... passes
+[2026-04-04 01:53:28] US-004 iteration 2: created snapshot/manifest.go, cmd/diff.go, registered diff in main.go; go test ./... PASS
