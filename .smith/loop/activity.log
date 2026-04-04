@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 01:54:51] Iteration 1 (tests-only): Created project/project.go (full), project/project_test.go (7 tests PASS), stub cmd files, cmd test files (16 tests RED), wired main.go + cmd/util.go. PRD US-001 set to in_progress.
+[2026-04-04 01:56:58] Implemented RunInit, RunProjectAdd, RunProjectRemove, RunProjectShow; all tests pass (go test ./...)
