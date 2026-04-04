@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 02:24:47] iteration=1 story=US-001 action=tests-written file=cmd/project_test.go tests=23 result=build-failed-as-expected
+[2026-04-04 02:26:58] US-001 iteration 2 complete: created project_config.go, project.go; modified util.go, usage.go, main.go; go test ./... PASS

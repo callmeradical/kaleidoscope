@@ -547,6 +547,66 @@ Output:
 Notes:
   Skills are prefixed with ks- to namespace them.
   Invoke in Claude Code with /ks-design-review, /ks-build-component, etc.`,
+
+	"init": `ks init --name <name> --base-url <url> [--paths <paths>]
+
+Initialize a kaleidoscope project in the current directory.
+
+Required flags:
+  --name      Project name
+  --base-url  Base URL for the project
+
+Optional flags:
+  --paths     Comma-separated list of paths to track (default: /)
+
+Output:
+  { "ok": true, "command": "init", "result": { "name": "...", "baseUrl": "...", "paths": [...], "breakpoints": [...] } }
+
+Errors:
+  Already initialized: { "ok": false, "error": "project already initialized" }
+  Missing --name:      { "ok": false, "error": "missing --name" }
+  Missing --base-url:  { "ok": false, "error": "missing --base-url" }
+
+Notes:
+  Breakpoints default to four standard presets: mobile (375x812), tablet (768x1024), desktop (1280x720), wide (1920x1080).`,
+
+	"project-add": `ks project-add <path>
+
+Add a URL path to the project configuration.
+
+Arguments:
+  path   The path to add (e.g. /settings)
+
+Output:
+  { "ok": true, "command": "project-add", "result": { "path": "...", "paths": [...] } }
+
+Errors:
+  Duplicate path:       { "ok": false, "error": "path already exists" }
+  Not initialized:      { "ok": false, "error": "project not initialized" }`,
+
+	"project-remove": `ks project-remove <path>
+
+Remove a URL path from the project configuration.
+
+Arguments:
+  path   The path to remove (e.g. /settings)
+
+Output:
+  { "ok": true, "command": "project-remove", "result": { "path": "...", "paths": [...] } }
+
+Errors:
+  Path not found:  { "ok": false, "error": "path not found" }
+  Not initialized: { "ok": false, "error": "project not initialized" }`,
+
+	"project-show": `ks project-show
+
+Show the full project configuration as JSON.
+
+Output:
+  { "ok": true, "command": "project-show", "result": { "name": "...", "baseUrl": "...", "paths": [...], "breakpoints": [...] } }
+
+Errors:
+  Not initialized: { "ok": false, "error": "project not initialized" }`,
 }
 
 // PrintUsage prints detailed usage for a command and returns true if --usage was found.
