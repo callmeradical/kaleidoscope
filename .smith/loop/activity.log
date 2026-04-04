@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:11:06] US-007 tests-first iteration: created cmd/install_hook.go and cmd/install_hook_test.go; all go test ./... pass
+[2026-04-04 03:12:11] US-007 verification complete: all 10 tests pass, story marked done
