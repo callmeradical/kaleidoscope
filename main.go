@@ -120,6 +120,8 @@ func main() {
 		cmd.RunCatalogShow(cmdArgs)
 	case "catalog-repo":
 		cmd.RunCatalogRepo(cmdArgs)
+	case "accept":
+		cmd.RunAccept(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
 	default:

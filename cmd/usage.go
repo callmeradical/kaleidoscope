@@ -528,6 +528,33 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"accept": `ks accept [snapshot-id] [--url <path>]
+
+Promote a snapshot to baseline, persisted in .kaleidoscope/baselines.json.
+
+Arguments:
+  snapshot-id    ID of the snapshot to promote (default: latest)
+
+Options:
+  --url <path>   Limit accept to a single URL path; all others are unchanged
+
+Output:
+  { "ok": true, "result": {
+    "snapshotId": "20260404-153012",
+    "changed": ["/home", "/about"],
+    "noOp": false,
+    "baselines": [{ "url": "/home", "snapshotId": "20260404-153012" }, ...]
+  }}
+
+Examples:
+  ks accept                          # Promote latest snapshot for all URLs
+  ks accept 20260404-153012          # Promote a specific snapshot
+  ks accept --url /dashboard         # Update baseline for /dashboard only
+
+Notes:
+  If the snapshot is already the baseline for the given URLs, this is a no-op (noOp: true).
+  Returns an error if no snapshots exist.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.
