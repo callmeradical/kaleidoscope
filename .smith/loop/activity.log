@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:32:29] Created pixeldiff package (diff.go + diff_test.go) with 7 passing tests covering all US-004 acceptance criteria: identical images, complete diff, partial diff, dimension mismatch, threshold boundary, pixel tolerance, and WriteDiffPNG.
+[2026-04-04 03:37:31] US-004 Phase 3 complete: cmd/diff.go RunDiff command implemented with ScreenshotDiffEntry, slugifyURL, buildDiffPath, resolveThreshold. 14/14 tests pass (go test ./...).
