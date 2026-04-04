@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:34:28] US-003: Created diff package (types.go, audit.go, element.go), snapshot stubs, cmd/diff.go, 13 unit tests. go test ./... PASS
+[2026-04-04 03:35:11] US-003 iteration 2: go build ./... PASS, go test ./... PASS (16 tests in diff package, all pass)
