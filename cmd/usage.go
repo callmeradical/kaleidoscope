@@ -528,6 +528,59 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"snapshot": `ks snapshot [--full-page]
+
+Capture all project URLs at every breakpoint, run audit and ax-tree, and persist
+the results under .kaleidoscope/snapshots/<id>/.
+
+Options:
+  --full-page    Capture full scrollable page at each breakpoint
+
+Output:
+  { "ok": true, "result": {
+    "id": "20240101T120000Z-abc1234",
+    "snapshotDir": "/path/to/.kaleidoscope/snapshots/<id>",
+    "timestamp": "2024-01-01T12:00:00Z",
+    "commitHash": "abc1234",
+    "autoPromotedBaseline": true,
+    "urls": [{ "url": "https://...", "slug": "localhost-3000" }]
+  }}
+
+Error conditions:
+  Missing .ks-project.json → exit 2 with guidance to create config
+  Browser not running      → exit 2 with "Run: ks start" hint
+  Individual URL errors    → recorded per-URL; snapshot continues
+
+Notes:
+  Reads project URLs from .ks-project.json (required).
+  First snapshot with no existing baseline auto-creates .kaleidoscope/baselines.json.
+  Each URL subdirectory contains 4 breakpoint PNGs, audit.json, and ax-tree.json.`,
+
+	"history": `ks history [--limit N]
+
+List snapshots in reverse chronological order with timestamp, commit hash, and summary stats.
+
+Options:
+  --limit N    Show only the N most recent snapshots (default: all)
+
+Output:
+  { "ok": true, "result": {
+    "snapshots": [
+      {
+        "id": "20240101T120000Z-abc1234",
+        "timestamp": "2024-01-01T12:00:00Z",
+        "commitHash": "abc1234",
+        "urlCount": 3,
+        "summary": { "totalIssues": 5, "contrastViolations": 2, ... },
+        "isBaseline": true
+      }
+    ]
+  }}
+
+Examples:
+  ks history              # List all snapshots
+  ks history --limit 5    # Show 5 most recent`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.
