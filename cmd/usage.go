@@ -528,6 +528,27 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"diff-report": `ks diff-report [snapshot-id] [--output path]
+
+Generate a self-contained HTML report comparing baseline vs current screenshot
+with pixel diff overlays, audit delta tables, and element change lists.
+
+Options:
+  [snapshot-id]      Snapshot to compare (default: latest)
+  --output <path>    Output file path (default: .kaleidoscope/diff-report.html)
+
+Output:
+  { "ok": true, "result": { "path": "/path/to/diff-report.html", "baselineId": "...", "currentId": "...", "pages": 1 } }
+
+Examples:
+  ks diff-report                              # Compare latest snapshot vs baseline
+  ks diff-report snap-20240101-120000         # Compare specific snapshot vs baseline
+  ks diff-report --output /tmp/diff.html      # Save to custom path
+
+Notes:
+  Requires a baseline to be set (ks snapshot baseline <id>) and at least one snapshot.
+  The report is self-contained with base64-embedded screenshots.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.
