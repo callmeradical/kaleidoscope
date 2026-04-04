@@ -27,3 +27,20 @@
 - Error-path tests (os.Exit) require subprocess pattern with TEST_SUBPROCESS env var
 - captureStdout() via os.Pipe is needed for success-path JSON output verification
 - Go binary: ~/.local/share/mise/installs/go/1.22.12/bin/go (actual version: go1.26.1)
+
+### Run kal-3254b-autofix-kal-960c4-github-callmer-us-001 | Iteration 2
+
+**Status:** done
+
+**Commands run:**
+- `go test ./... -count=1` → PASS (ok github.com/callmeradical/kaleidoscope/cmd 0.030s)
+
+**Files changed:**
+- None (all work completed in iteration 1, committed as 165e050)
+
+**Verification:**
+- All 14 tests pass fresh (no cache)
+- US-001 status updated to `done` in PRD JSON
+
+**Key learnings:**
+- Iteration 2 was a verification-only pass; no code changes needed

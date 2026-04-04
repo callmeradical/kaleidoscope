@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:11:52] Implemented US-001: cmd/project.go (RunInit, RunProjectAdd, RunProjectRemove, RunProjectShow) + cmd/project_test.go (14 tests). Wired in main.go, updated cmd/usage.go and cmd/util.go. go test ./... passes.
+[2026-04-04 03:13:10] US-001 iteration 2: verified all 14 tests pass, story marked done
