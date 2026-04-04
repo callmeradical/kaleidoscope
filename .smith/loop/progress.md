@@ -27,8 +27,26 @@
 - `List()` returns empty slice (not error) when snapshots dir doesn't exist
 - `LoadBaseline()` returns (nil, nil) when baselines.json missing — callers treat nil as "no baseline yet"
 
-**Remaining (future iterations):**
-- Phase 3: cmd/breakpoints_common.go, cmd/audit_internal.go refactoring
-- Phase 4: cmd/snapshot.go (RunSnapshot command)
-- Phase 5: cmd/history.go (RunHistory command)
-- Phase 6: Wire into main.go
+### Run: kal-7e88f-github-callmeradical-kaleidoscop-us-002 | Iteration 2 of 10
+
+**Status:** done
+
+**Files Created/Modified:**
+- `cmd/breakpoints_common.go` — shared `breakpoint` struct + `defaultBreakpoints`
+- `cmd/breakpoints.go` — removed duplicate struct/var (now in breakpoints_common.go)
+- `cmd/audit_internal.go` — `runAudit` + `runAxTree` helpers
+- `cmd/audit.go` — refactored to thin wrapper calling `runAudit`
+- `cmd/snapshot.go` — `RunSnapshot` command (full capture loop, manifest, baseline auto-promote)
+- `cmd/history.go` — `RunHistory` command (list snapshots with summary stats)
+- `main.go` — added `snapshot` and `history` cases + usage text
+
+**Commands Run:**
+- `go build ./...` → PASS
+- `go test ./...` → PASS (snapshot package: all 9 tests cached)
+- `go vet ./...` → PASS (no output)
+
+**Key Patterns:**
+- `runAudit` includes ax-tree CDP call to maintain backward-compatible output (accessibility summary in result map)
+- `runAxTree` makes a separate CDP call for the full node list written to ax-tree.json
+- Viewport restored after breakpoint screenshots using state read before the URL loop
+- URL navigation errors recorded per-entry (non-fatal); only browser/filesystem errors abort the run
