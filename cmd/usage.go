@@ -528,6 +528,38 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"diff": `ks diff [snapshot-id] [--pos-threshold N] [--size-threshold N]
+
+Compare a snapshot against the baseline and report regressions as structured JSON.
+
+Arguments:
+  snapshot-id           ID of snapshot to compare (default: latest)
+
+Options:
+  --pos-threshold N     Pixel threshold to classify position change as "moved" (default: 4.0)
+  --size-threshold N    Pixel threshold to classify size change as "resized" (default: 4.0)
+
+Exit codes:
+  0   No regressions detected
+  1   One or more regressions detected
+  2   Error (no baseline, snapshot not found, I/O error)
+
+Output:
+  { "ok": true, "command": "diff", "result": {
+    "snapshotId": "...", "baselineId": "...", "hasRegression": true,
+    "audit": { "hasRegression": true, "categories": {...}, "issues": {...} },
+    "elements": { "hasRegression": false, "appeared": [], "disappeared": [], "moved": [], "resized": [] }
+  }}
+
+Examples:
+  ks diff                      # Compare latest snapshot to baseline
+  ks diff 1712000000000        # Compare specific snapshot to baseline
+  ks diff --pos-threshold 8    # Custom position threshold
+
+Notes:
+  Returns error (exit 2) if no baseline has been set.
+  Run 'ks baseline set <snapshot-id>' to set a baseline.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.

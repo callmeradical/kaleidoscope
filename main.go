@@ -46,6 +46,9 @@ Design System Catalog:
   catalog-search <query>     Search the catalog (--kind to filter by type)
   catalog-show <name>        Show full details of a cataloged entry
 
+Snapshot & Regression:
+  diff [snapshot-id]      Compare snapshot to baseline; exit 1 on regression
+
 Skills:
   install-skills          Install Claude Code skills for front-end design
 
@@ -120,6 +123,8 @@ func main() {
 		cmd.RunCatalogShow(cmdArgs)
 	case "catalog-repo":
 		cmd.RunCatalogRepo(cmdArgs)
+	case "diff":
+		cmd.RunDiff(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
 	default:
