@@ -25,6 +25,59 @@ var defaultBreakpoints = []breakpoint{
 	{"wide", 1920, 1080},
 }
 
+// captureBreakpointsToDir saves 4 breakpoint PNGs to destDir, returns metadata.
+func captureBreakpointsToDir(page *rod.Page, destDir string) ([]map[string]any, error) {
+	// Save current viewport to restore later
+	state, _ := browser.ReadState()
+	var origW, origH int
+	if state != nil && state.Viewport != nil {
+		origW = state.Viewport.Width
+		origH = state.Viewport.Height
+	}
+
+	var results []map[string]any
+
+	for _, bp := range defaultBreakpoints {
+		if err := page.SetViewport(&proto.EmulationSetDeviceMetricsOverride{
+			Width:  bp.Width,
+			Height: bp.Height,
+		}); err != nil {
+			return nil, fmt.Errorf("setting viewport for %s: %w", bp.Name, err)
+		}
+
+		// Wait for layout to settle
+		page.MustWaitStable()
+
+		filename := fmt.Sprintf("%s.png", bp.Name)
+		path := filepath.Join(destDir, filename)
+
+		data, err := page.Screenshot(false, nil)
+		if err != nil {
+			return nil, fmt.Errorf("screenshot at %s: %w", bp.Name, err)
+		}
+		if err := os.WriteFile(path, data, 0644); err != nil {
+			return nil, err
+		}
+
+		results = append(results, map[string]any{
+			"breakpoint": bp.Name,
+			"width":      bp.Width,
+			"height":     bp.Height,
+			"path":       path,
+		})
+	}
+
+	// Restore original viewport
+	if origW > 0 && origH > 0 {
+		_ = page.SetViewport(&proto.EmulationSetDeviceMetricsOverride{
+			Width:  origW,
+			Height: origH,
+		})
+	}
+
+	return results, nil
+}
+
 func RunBreakpoints(args []string) {
 	fullPage := hasFlag(args, "--full-page")
 
@@ -35,7 +88,10 @@ func RunBreakpoints(args []string) {
 		}
 
 		ts := time.Now().UnixMilli()
-		var results []map[string]any
+		destDir := filepath.Join(dir, fmt.Sprintf("%d", ts))
+		if err := os.MkdirAll(destDir, 0755); err != nil {
+			return err
+		}
 
 		// Save current viewport to restore later
 		state, _ := browser.ReadState()
@@ -45,12 +101,13 @@ func RunBreakpoints(args []string) {
 			origH = state.Viewport.Height
 		}
 
+		var results []map[string]any
+
 		for _, bp := range defaultBreakpoints {
-			err := page.SetViewport(&proto.EmulationSetDeviceMetricsOverride{
+			if err := page.SetViewport(&proto.EmulationSetDeviceMetricsOverride{
 				Width:  bp.Width,
 				Height: bp.Height,
-			})
-			if err != nil {
+			}); err != nil {
 				return fmt.Errorf("setting viewport for %s: %w", bp.Name, err)
 			}
 

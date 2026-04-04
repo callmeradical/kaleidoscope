@@ -40,6 +40,10 @@ UX Evaluation:
   spacing [selector]      Spacing consistency analysis
   report [options]        Generate HTML report with screenshots and findings
 
+Snapshot & History:
+  snapshot               Capture full interface state for all project URLs
+  history                List snapshots in reverse chronological order
+
 Design System Catalog:
   catalog <url>              Crawl a design system site and build searchable index
   catalog-repo <repo-url>    Catalog from a git repository (tokens, icons, docs)
@@ -120,6 +124,10 @@ func main() {
 		cmd.RunCatalogShow(cmdArgs)
 	case "catalog-repo":
 		cmd.RunCatalogRepo(cmdArgs)
+	case "snapshot":
+		cmd.RunSnapshot(cmdArgs)
+	case "history":
+		cmd.RunHistory(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
 	default:
