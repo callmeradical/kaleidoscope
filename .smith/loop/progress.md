@@ -41,3 +41,22 @@
 - `t.TempDir()` paths are under `/tmp/...`, safely outside the `/workspace` git repo, so `findGitRoot` correctly returns "not a git repository" for non-git test dirs
 - Sequential test execution (no `t.Parallel()`) allows safe use of `os.Chdir` + cleanup
 
+
+### Run kal-f037c-autofix-kal-b9537-github-callmer-us-007 — Iteration 2 (wiring + completion)
+
+**Status:** done
+
+**Commands run:**
+- `/usr/local/go/bin/go build ./...` — PASS
+- `/usr/local/go/bin/go test ./...` — PASS (`ok github.com/callmeradical/kaleidoscope/cmd 0.010s`)
+
+**Files modified:**
+- `main.go` — Added `case "install-hook": cmd.RunInstallHook(cmdArgs)` to switch; added Hooks section to usage string
+- `cmd/usage.go` — Added `"install-hook"` entry to CommandUsage map with summary, flags, examples, and output
+
+**Commit:** d169c07
+
+**Key learnings:**
+- `cmd/installhook.go` and `cmd/installhook_test.go` were already committed in iteration 1; only wiring changes were staged this iteration
+- All 16 tests in installhook_test.go passing; global quality gate green
+

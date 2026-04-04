@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:33:51] iteration-1: created cmd/installhook.go (stub impl) and cmd/installhook_test.go (12 tests covering all AC); go test ./... passes
+[2026-04-04 03:35:30] US-007 complete: wired install-hook into CLI router, added usage docs, all tests pass
