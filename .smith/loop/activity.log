@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:33:58] US-001 tests written and passing: project/config_test.go, cmd/init_test.go, cmd/project_add_test.go, cmd/project_remove_test.go, cmd/project_show_test.go. go test ./... PASS
+[2026-04-04 03:34:43] US-001 verified: go test ./... PASS (cmd: 0.052s, project: 0.003s) — story marked done

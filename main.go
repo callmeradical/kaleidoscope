@@ -122,6 +122,14 @@ func main() {
 		cmd.RunCatalogRepo(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
+	case "init":
+		cmd.RunInit(cmdArgs)
+	case "project-add":
+		cmd.RunProjectAdd(cmdArgs)
+	case "project-remove":
+		cmd.RunProjectRemove(cmdArgs)
+	case "project-show":
+		cmd.RunProjectShow(cmdArgs)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown command: %s\nRun 'ks --help' for usage.\n", command)
 		os.Exit(2)
