@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 01:49:16] iteration=1 story=US-007 action=tests-written files=cmd/install_hook_test.go,cmd/util_test.go result=failing-as-expected
+[2026-04-04 01:50:27] US-007 implementation complete: added findGitRoot() to cmd/util.go, created cmd/install_hook.go, updated main.go with install-hook case. go test ./... PASS
