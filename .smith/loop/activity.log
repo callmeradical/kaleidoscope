@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:13:01] US-006 iteration 1: wrote failing tests for diff/pixel_test.go (4 tests) and report/diff_report_test.go (3 tests); stubs created in diff/pixel.go and report/diff_report.go; all 7 tests fail as expected; PRD status set to in_progress
+[2026-04-04 03:21:11] US-006 iteration 2: implemented Overlay/Score in diff/pixel.go, GenerateDiff HTML template in report/diff_report.go, snapshot package stub, cmd/diff_report.go, wired main.go and usage.go — go test ./... all pass
