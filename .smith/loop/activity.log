@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 01:52:17] Iteration 1: Created snapshot package (model, urldir, store, project, baseline) with full unit tests. go test ./... passes.
+[2026-04-04 01:55:49] Implemented Phases 3-6 for US-002: breakpoints_common.go, audit_internal.go, snapshot.go, history.go; wired into main.go; go build ./... and go test ./... pass
