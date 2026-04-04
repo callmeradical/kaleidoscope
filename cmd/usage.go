@@ -528,6 +528,73 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"init": `ks init --name <name> --base-url <url> --paths <paths>
+
+Create a .ks-project.json in the current directory.
+
+Options:
+  --name <name>        Project name (required)
+  --base-url <url>     Base URL for the project (required)
+  --paths <paths>      Comma-separated list of paths to track (required)
+
+Output:
+  { "ok": true, "result": { "path": ".ks-project.json", "name": "...", "baseURL": "...", "paths": [...], "breakpoints": [...] } }
+
+Examples:
+  ks init --name my-app --base-url https://example.com --paths /,/dashboard
+
+Notes:
+  Breakpoints default to four standard presets: mobile (375x812), tablet (768x1024), desktop (1280x720), wide (1920x1080).
+  Returns an error if .ks-project.json already exists in the current directory.`,
+
+	"project-add": `ks project-add <path>
+
+Add a URL path to the project config.
+
+Arguments:
+  path    The path to add (required, e.g. /settings)
+
+Output:
+  { "ok": true, "result": { "path": "/settings", "paths": [...] } }
+
+Examples:
+  ks project-add /settings
+  ks project-add /about
+
+Notes:
+  Returns an error if the path already exists in the project.
+  Requires .ks-project.json to exist (run ks init first).`,
+
+	"project-remove": `ks project-remove <path>
+
+Remove a URL path from the project config.
+
+Arguments:
+  path    The path to remove (required, e.g. /settings)
+
+Output:
+  { "ok": true, "result": { "path": "/settings", "paths": [...] } }
+
+Examples:
+  ks project-remove /settings
+
+Notes:
+  Returns an error if the path does not exist in the project.
+  Requires .ks-project.json to exist (run ks init first).`,
+
+	"project-show": `ks project-show
+
+Output the full project config as structured JSON.
+
+Output:
+  { "ok": true, "result": { "name": "...", "baseURL": "...", "paths": [...], "breakpoints": [...] } }
+
+Examples:
+  ks project-show
+
+Notes:
+  Requires .ks-project.json to exist (run ks init first).`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.
