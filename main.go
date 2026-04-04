@@ -39,6 +39,7 @@ UX Evaluation:
   contrast [selector]     WCAG color contrast check
   spacing [selector]      Spacing consistency analysis
   report [options]        Generate HTML report with screenshots and findings
+  diff-report [id]        Generate side-by-side HTML diff report vs baseline
 
 Design System Catalog:
   catalog <url>              Crawl a design system site and build searchable index
@@ -122,6 +123,8 @@ func main() {
 		cmd.RunCatalogRepo(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
+	case "diff-report":
+		cmd.RunDiffReport(cmdArgs)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown command: %s\nRun 'ks --help' for usage.\n", command)
 		os.Exit(2)
