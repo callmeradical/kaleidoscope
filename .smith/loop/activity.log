@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:30:22] US-005 tests-first: created snapshot/index.go, snapshot/baseline.go (stubs), snapshot/baseline_test.go (7 tests, 6 failing as expected). go test ./... compiles; snapshot tests fail on stub Accept.
+[2026-04-04 03:31:54] US-005: Implemented Accept() in snapshot/baseline.go; created cmd/accept.go; updated cmd/util.go, cmd/usage.go, main.go; go test ./... PASS
