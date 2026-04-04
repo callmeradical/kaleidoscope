@@ -528,6 +528,42 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"accept": `ks accept [snapshot-id] [--url <path>]
+
+Promote a snapshot to baseline for future diff comparisons.
+
+Arguments:
+  snapshot-id    ID of the snapshot to accept (default: latest)
+
+Options:
+  --url <path>   Accept baseline for a single URL path only (e.g. /dashboard)
+
+Forms:
+  ks accept                              Latest snapshot, all URLs
+  ks accept <snapshot-id>                Specific snapshot, all URLs
+  ks accept --url /dashboard             Latest snapshot, /dashboard only
+  ks accept <snapshot-id> --url /path    Specific snapshot, one path
+
+Output:
+  { "ok": true, "command": "accept", "result": {
+    "snapshotId": "20260404T123000Z",
+    "paths": ["/", "/dashboard"],
+    "baselines": {
+      "/": { "snapshotId": "...", "acceptedAt": "..." },
+      "/dashboard": { "snapshotId": "...", "acceptedAt": "..." }
+    }
+  }}
+
+Error cases:
+  No snapshots exist           → "no snapshots found" (hint: Run: ks snapshot)
+  Snapshot ID not found        → "snapshot not found: <id>"
+  --url path not in snapshot   → "snapshot does not contain URL path: <path>"
+
+Notes:
+  Calling accept twice with the same snapshot is a no-op (idempotent).
+  baselines.json is committed to the repo; snapshots/ is gitignored.
+  --url updates only the specified path; all other baselines are preserved.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.

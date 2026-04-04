@@ -122,6 +122,8 @@ func main() {
 		cmd.RunCatalogRepo(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
+	case "accept":
+		cmd.RunAccept(cmdArgs)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown command: %s\nRun 'ks --help' for usage.\n", command)
 		os.Exit(2)
