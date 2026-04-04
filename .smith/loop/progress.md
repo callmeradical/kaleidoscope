@@ -43,5 +43,30 @@
 - Separate Moved and Resized detection allows a node to appear in both
 - All slices initialized to empty (not nil) for correct JSON `[]` serialization
 
-**Remaining** (next iteration): cmd/diff.go + main.go wiring (Phase 4), then mark done
+**Remaining**: none — story complete
+
+### Run: kal-93484-autofix-kal-0d599-github-callmer-us-003 | Iteration 2
+
+**Status**: done
+
+**Commands run**:
+- `go build ./...` → OK
+- `go test ./...` → PASS (diff: 0.004s)
+- `go vet ./...` → OK
+
+**Files created**:
+- `cmd/diff.go` — RunDiff: loads baseline (ErrNoBaseline → exit 2), loads target (by ID or latest), calls diff.Compare, emits output.Success, exits 1 on regressions
+
+**Files edited**:
+- `main.go` — added `case "diff": cmd.RunDiff(cmdArgs)` and Regression Detection usage section
+
+**All acceptance criteria satisfied**:
+- ks diff compares latest snapshot against baseline (LoadLatestSnapshot path)
+- ks diff <id> compares specific snapshot (LoadSnapshot path)
+- Audit deltas per-category via CompareAudit (ContrastDelta, TouchDelta, TypographyDelta)
+- Per-issue new/resolved tracking by category:selector key
+- Element changes: appeared, disappeared, moved, resized via CompareElements
+- Semantic identity (role|name) matching, empty-name nodes skipped
+- Exit 0 clean, exit 1 regressions, exit 2 error (ErrNoBaseline)
+- ErrNoBaseline error with hint returned when no baseline exists
 

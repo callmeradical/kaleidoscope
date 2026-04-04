@@ -46,6 +46,11 @@ Design System Catalog:
   catalog-search <query>     Search the catalog (--kind to filter by type)
   catalog-show <name>        Show full details of a cataloged entry
 
+Regression Detection:
+  snapshot [options]      Capture a snapshot (audit + ax-tree + screenshot)
+  snapshot --set-baseline Mark a snapshot as the known-good baseline
+  diff [snapshot-id]      Compare snapshot against baseline; exit 1 on regression
+
 Skills:
   install-skills          Install Claude Code skills for front-end design
 
@@ -122,6 +127,8 @@ func main() {
 		cmd.RunCatalogRepo(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
+	case "diff":
+		cmd.RunDiff(cmdArgs)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown command: %s\nRun 'ks --help' for usage.\n", command)
 		os.Exit(2)
