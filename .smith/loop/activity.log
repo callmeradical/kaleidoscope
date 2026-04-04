@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 02:25:20] US-003 iteration 1: Created snapshot package (types/storage/load), diff package (types/audit/elements), and test files (audit_test.go, elements_test.go). go test ./... PASS (diff: 0.030s).
+[2026-04-04 02:28:14] Implemented Phase 3 CLI integration for US-003: created cmd/diff.go (RunDiff, parseFlagFloat), updated cmd/util.go (--pos-threshold, --size-threshold flags), cmd/usage.go (diff entry), main.go (diff case + usage section). go build ./... and go test ./... both pass.
