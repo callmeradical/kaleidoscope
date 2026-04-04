@@ -528,6 +528,73 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"snapshot": `ks snapshot [--local]
+
+Capture screenshots and UX audits for all URLs defined in .ks-project.json.
+
+Options:
+  --local    Use project-local browser state (.kaleidoscope/)
+
+What gets captured (per URL):
+  - Screenshots at 4 breakpoints (mobile 375x812, tablet 768x1024, desktop 1280x720, wide 1920x1080)
+  - audit.json with contrast, touch, and typography findings
+  - ax-tree.json with the full accessibility tree
+
+Output:
+  { "ok": true, "result": {
+    "id": "1712345678-abc1234",
+    "path": "/path/to/.kaleidoscope/snapshots/1712345678-abc1234",
+    "timestamp": "2024-04-05T12:34:56Z",
+    "commitHash": "abc1234",
+    "urlCount": 3,
+    "baselinePromoted": true,
+    "urls": [...],
+    "errors": []
+  }}
+
+Examples:
+  ks snapshot              # Capture all project URLs
+  ks snapshot --local      # Use project-local browser state
+
+Notes:
+  Requires .ks-project.json in the current directory (run 'ks init' first).
+  Requires a running browser (run 'ks start' first).
+  The first snapshot automatically becomes the baseline.
+  Snapshots are stored in .kaleidoscope/snapshots/<id>/.`,
+
+	"history": `ks history [--limit N]
+
+List all snapshots with timestamp, commit hash, and summary statistics.
+
+Options:
+  --limit N   Show only the N most recent snapshots (default: no limit)
+
+Output:
+  { "ok": true, "result": {
+    "count": 3,
+    "snapshots": [
+      {
+        "id": "1712345678-abc1234",
+        "timestamp": "2024-04-05T12:34:56Z",
+        "commitHash": "abc1234",
+        "isBaseline": true,
+        "urlCount": 3,
+        "totalContrastViolations": 5,
+        "totalTouchViolations": 2,
+        "totalTypographyWarnings": 8,
+        "totalAXActiveNodes": 120
+      }
+    ]
+  }}
+
+Examples:
+  ks history               # List all snapshots
+  ks history --limit 5     # List 5 most recent snapshots
+
+Notes:
+  Snapshots are listed newest first.
+  isBaseline: true marks the current default baseline.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.
