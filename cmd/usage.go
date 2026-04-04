@@ -528,6 +528,20 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"install-hook": `ks install-hook
+
+Installs a git pre-commit hook that automatically runs ks snapshot and ks diff
+on every commit. The hook is advisory (always exits 0) and auto-starts Chrome
+if not running.
+
+Options:
+  (none)
+
+Errors:
+  - Exits 2 if .ks-project.json is not found
+  - Exits 2 if not run from a git repository root
+  - Exits 2 if .git/hooks/pre-commit already exists`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.

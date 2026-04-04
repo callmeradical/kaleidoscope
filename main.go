@@ -48,6 +48,7 @@ Design System Catalog:
 
 Skills:
   install-skills          Install Claude Code skills for front-end design
+  install-hook            Install git pre-commit hook for regression checks
 
 Options:
   --human                 Human-readable output (default: JSON)
@@ -122,6 +123,8 @@ func main() {
 		cmd.RunCatalogRepo(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
+	case "install-hook":
+		cmd.RunInstallHook(cmdArgs)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown command: %s\nRun 'ks --help' for usage.\n", command)
 		os.Exit(2)

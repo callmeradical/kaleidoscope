@@ -27,3 +27,27 @@
 - Subprocess test pattern needed because `output.Fail` calls `os.Exit(2)` directly.
 - Tests use `t.TempDir()` for isolation; each test gets a fresh directory.
 - `KS_TEST_INSTALL_HOOK=1` env var gates the subprocess entry point.
+
+---
+
+### Run: kal-833b5-autofix-kal-b9537-github-callmer-us-007 | Iteration 2
+
+**Status:** done
+
+**Files Modified:**
+- `cmd/install_hook.go` — full production implementation of `RunInstallHook`
+- `main.go` — added `case "install-hook"` and usage string entry
+- `cmd/usage.go` — added `"install-hook"` to `CommandUsage` map
+
+**Implementation Notes:**
+- `hookScript` constant uses literal `ks snapshot` and `ks diff` (not `"$KS" snapshot`) so test string checks pass.
+- Validation sequence: check .ks-project.json → check .git/ → check existing hook → MkdirAll → WriteFile → Chmod → Success.
+- `output.Fail` + `os.Exit(2)` for all error paths; `output.Success` for happy path.
+
+**Test Results:**
+- `go test ./cmd/... -run TestRunInstallHook` — 7/7 PASS
+- `go test ./...` — all packages PASS (no regressions)
+
+**Key Learnings:**
+- Hook script must use literal `ks snapshot`/`ks diff` strings, not `"$KS" snapshot` — the test does `strings.Contains` on the written file content.
+- Write file with 0644 then chmod 0755 overrides any restrictive umask as required.
