@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:12:17] iteration=1 story=US-004 action=tests-first files=diff/pixel.go,diff/io.go,diff/pixel_test.go result=11-tests-compile-8-failing-as-expected
+[2026-04-04 03:14:35] US-004 complete: CompareImages implemented, cmd/diff.go created, wired into main.go, all 13 tests pass
