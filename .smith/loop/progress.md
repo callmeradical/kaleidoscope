@@ -29,3 +29,33 @@
 - `similarityScore < (1.0 - threshold)` is strict less-than (boundary is not regressed)
 - Per-channel diff uses `> opts.PixelTolerance` (strict, not >=)
 
+---
+
+### Run: kal-f500d-autofix-kal-9f4f2-github-callmer-us-004 | Iteration 2
+
+**Status:** done
+
+**Files Created/Modified:**
+- `cmd/diff.go` — Phase 3: `RunDiff`, `ScreenshotDiffEntry`, `ScreenshotSummary`, `slugifyURL`, `buildDiffPath`, `resolveThreshold`
+- `cmd/diff_test.go` — 7 tests for cmd/diff.go (slugify, compareScreenshotPair, buildDiffPath, RunDiff)
+- `cmd/util.go` — Added `--screenshot-threshold`, `--baseline`, `--current`, `--output-dir`, `--url`, `--breakpoint` to flag skip list
+- `main.go` — Added `diff` case routing to `cmd.RunDiff`
+
+**Commands Run:**
+- `go build ./...` → PASS
+- `go test ./cmd/... -v` → PASS (7/7 tests)
+- `go test ./...` → PASS (14/14 tests: 7 cmd + 7 pixeldiff)
+
+**Acceptance Criteria Verification:**
+- AC1: pixeldiff.Compare produces diff PNG highlighting changed pixels ✅
+- AC2: Returns similarity score 0.0-1.0 ✅
+- AC3: WriteDiffPNG writes to snapshot dir alongside source screenshots ✅ (output-dir or alongside current path)
+- AC4: `ks diff` JSON output includes screenshot diff results ✅ (ScreenshotDiffEntry with paths, scores)
+- AC5: Dimension mismatch handled gracefully, no panic ✅
+- AC6: `--screenshot-threshold` flag controls regression detection ✅
+
+**Implementation Notes:**
+- Phase 3 implemented as standalone `ks diff --baseline <path> --current <path>` without US-002 snapshot system
+- Designed to integrate with US-002 snapshot types when available (ScreenshotDiffEntry has URL/Breakpoint fields)
+- `ks-project.json` `screenshotThreshold` field supported as config fallback
+
