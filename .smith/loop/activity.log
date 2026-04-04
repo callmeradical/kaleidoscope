@@ -1,0 +1,5 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 02:27:01] US-004 iteration 1: Created failing tests for Screenshot Pixel Diff. diff/pixeldiff_test.go (7 failing), cmd/diff_test.go (3 passing cmd scaffold tests). Stubs: diff/pixeldiff.go, cmd/diff.go. cmd/util.go updated with --snapshot/--baseline/--threshold flags. main.go wired with case diff.
