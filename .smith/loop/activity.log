@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:10:13] Created snapshot/types.go, snapshot/store.go, diff/diff.go, diff/diff_test.go for US-003; go test ./... PASS
+[2026-04-04 03:12:12] Phase 4 complete: created cmd/diff.go and wired diff case + usage into main.go; go test ./... PASS
