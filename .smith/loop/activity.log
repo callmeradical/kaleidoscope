@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:36:41] iteration-1: created stubs + failing tests for US-006 (snapshot/store.go, diff/engine.go, report/diff_report.go, cmd/diff_report.go, main.go diff-report case, report/diff_report_test.go, cmd/diff_report_test.go)
+[2026-04-04 03:40:55] Iteration 2: Implemented full diffHTMLTemplate and buildDiffData; all 28 tests pass (go test ./...)
