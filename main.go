@@ -46,6 +46,9 @@ Design System Catalog:
   catalog-search <query>     Search the catalog (--kind to filter by type)
   catalog-show <name>        Show full details of a cataloged entry
 
+Hooks:
+  install-hook [--force]  Install git pre-commit hook for regression detection
+
 Skills:
   install-skills          Install Claude Code skills for front-end design
 
@@ -120,6 +123,8 @@ func main() {
 		cmd.RunCatalogShow(cmdArgs)
 	case "catalog-repo":
 		cmd.RunCatalogRepo(cmdArgs)
+	case "install-hook":
+		cmd.RunInstallHook(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
 	default:
