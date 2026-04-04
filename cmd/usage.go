@@ -528,6 +528,49 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"diff": `ks diff [--baseline <id>] [--current <id>] [--threshold <0.0-1.0>]
+
+Compare baseline vs. current screenshots pixel-by-pixel, write diff PNGs, and output similarity scores.
+
+Options:
+  --baseline <id>      Baseline snapshot ID (default: currentBaseline from .kaleidoscope/baselines.json)
+  --current <id>       Current snapshot ID (default: most recent snapshot)
+  --threshold <float>  Similarity threshold below which a screenshot is flagged as regressed (default: 0.99)
+
+Output:
+  { "ok": true, "result": {
+    "baselineSnapshotID": "...",
+    "currentSnapshotID": "...",
+    "threshold": 0.99,
+    "hasRegressions": false,
+    "screenshotDiffs": [
+      {
+        "url": "https://...",
+        "breakpoint": "desktop",
+        "baselinePath": "...",
+        "currentPath": "...",
+        "diffPath": "...",
+        "similarity": 0.997,
+        "regressed": false,
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "auditDiffs": [],
+    "elementDiffs": []
+  }}
+
+Examples:
+  ks diff                                          # Compare latest snapshot to baseline
+  ks diff --baseline snap-001 --current snap-002   # Compare two specific snapshots
+  ks diff --threshold 0.95                         # Use a more permissive threshold
+
+Notes:
+  Diff PNG images are written to the current snapshot directory alongside source screenshots.
+  Mismatched screenshot sets (URL/breakpoint pairs present in one snapshot but not the other) are silently skipped.
+  Mismatched image dimensions are reported as full regression (similarity: 0.0) without panicking.
+  Exit code 0 regardless of regressions — regressions are reported in the JSON output only.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.
