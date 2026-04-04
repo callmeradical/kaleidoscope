@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 01:53:44] iteration-1: created baseline/manager.go, baseline/manager_test.go, snapshot/store.go, cmd/accept.go, cmd/accept_test.go; updated cmd/util.go (+--url), cmd/usage.go, main.go; go test ./... PASS (12 tests)
+[2026-04-04 01:54:34] Iteration 2: Verified all tests pass — go test ./... PASS (baseline: 6, cmd: 6)
