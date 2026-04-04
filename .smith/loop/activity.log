@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 02:23:24] US-007 tests-only iteration: created cmd/install_hook_test.go with 7 failing tests and cmd/install_hook.go stub. All 7 tests fail as expected (TDD red phase).
+[2026-04-04 02:25:37] US-007 implementation complete: RunInstallHook production code written, all 7 tests pass, go test ./... passes
