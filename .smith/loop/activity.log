@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 02:26:46] iteration-1: created snapshot package (types.go, store.go, baseline.go), cmd/accept.go, updated main.go+util.go, wrote 12 tests in snapshot/ and cmd/ — go test ./... PASS
+[2026-04-04 02:28:01] US-005 iteration 2: verified all tests pass (go test ./... PASS), story marked done

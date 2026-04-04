@@ -46,6 +46,9 @@ Design System Catalog:
   catalog-search <query>     Search the catalog (--kind to filter by type)
   catalog-show <name>        Show full details of a cataloged entry
 
+Snapshot History:
+  accept [snapshot-id]       Promote snapshot to baseline (--url <path> for single URL)
+
 Skills:
   install-skills          Install Claude Code skills for front-end design
 
@@ -122,6 +125,8 @@ func main() {
 		cmd.RunCatalogRepo(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
+	case "accept":
+		cmd.RunAccept(cmdArgs)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown command: %s\nRun 'ks --help' for usage.\n", command)
 		os.Exit(2)
