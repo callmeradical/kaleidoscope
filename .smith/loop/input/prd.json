@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "project": "Snapshot History and Regression Detection",
+  "overview": "Kaleidoscope currently treats every audit, screenshot, and report as an ephemeral one-off. There is no way to track how a project's interface changes over time, detect unintentional regressions, or compare state before and after a code change. This feature introduces a project config, snapshot system, diff engine, baseline manager, HTML diff report, and pre-commit hook integration \u2014 giving AI agents and developers a complete visual regression detection workflow.",
+  "goals": [
+    "Enable chronological tracking of interface state across commits",
+    "Detect audit regressions (new contrast violations, increased issue counts) automatically",
+    "Detect element-level DOM changes (appeared, disappeared, moved, resized) via accessibility tree comparison",
+    "Detect pixel-level visual differences between screenshots",
+    "Provide structured JSON output for programmatic agent consumption and HTML reports for visual review",
+    "Integrate into git pre-commit hooks for automatic regression checks"
+  ],
+  "nonGoals": [
+    "Remote/cloud storage for snapshots (local only)",
+    "CI/CD pipeline integration beyond pre-commit hooks",
+    "Multi-branch tracking (snapshots are linear, not branch-aware)",
+    "Notification/alerting (Slack, email) on regression detection",
+    "Visual regression testing against design mockups (Figma, Sketch)",
+    "Automatic remediation (the agent decides; kaleidoscope only reports)",
+    "Snapshot pruning/retention policies",
+    "Video/animation capture"
+  ],
+  "successMetrics": [
+    "AI agent can detect and report regressions in a pre-commit hook without manual invocation",
+    "Diff engine correctly identifies new vs resolved audit issues per category",
+    "Element comparison via accessibility tree matches on semantic identity (role + name)",
+    "Pixel diff produces visual highlight overlays with configurable similarity threshold"
+  ],
+  "openQuestions": [
+    "Should snapshot storage deduplicate identical screenshots across runs to save space?",
+    "Should `ks diff` support comparing two arbitrary snapshots (not just latest vs baseline)?"
+  ],
+  "stack": {
+    "framework": "",
+    "hosting": "",
+    "database": "",
+    "auth": ""
+  },
+  "routes": null,
+  "uiNotes": "",
+  "dataModel": null,
+  "importFormat": "",
+  "rules": [
+    "All new commands follow the existing `output.Result` JSON convention via `output.Success`/`output.Fail",
+    "Snapshot commands reuse existing audit, screenshot, and ax-tree logic internally (no shelling out to the CLI)",
+    "Screenshot diffing must be pure Go using standard `image` and `image/png` packages (no ImageMagick)",
+    ".ks-project.json` is committed to the repo; `.kaleidoscope/snapshots/` is gitignored",
+    ".kaleidoscope/baselines.json` is committed to the repo (shared baseline)",
+    "The diff engine is a pure-function module (two data structures in, diff out) with no Chrome dependency"
+  ],
+  "qualityGates": [
+    "go test ./..."
+  ],
+  "stories": [
+    {
+      "id": "US-006",
+      "title": "Side-by-Side HTML Diff Report",
+      "status": "done",
+      "dependsOn": [
+        "US-003",
+        "US-004"
+      ],
+      "description": "As a developer, I want a visual HTML report showing baseline vs current screenshots side-by-side with diff overlays and audit delta tables, so that I can quickly review what changed.\n\nIntroduces `ks diff-report [snapshot-id] [--output path]`. Extends the existing `report/` HTML template engine. Layout: baseline (left), current (right), pixel diff overlay (center) for each URL and breakpoint. Below each section: audit delta tables and element change lists. Self-contained HTML with base64-embedded screenshots.",
+      "acceptanceCriteria": [
+        "ks diff-report` generates a self-contained HTML file comparing latest snapshot vs baseline",
+        "Side-by-side layout shows baseline (left), current (right), and diff overlay (center) per URL per breakpoint",
+        "Audit delta tables show per-category before/after/delta counts below each URL section",
+        "Element change lists show each change with selector, type (appeared/disappeared/moved/resized), and details",
+        "--output` flag controls output path; defaults to `.kaleidoscope/diff-report.html",
+        "Screenshots are base64-embedded (matching existing `ks report` approach)",
+        "Report fails gracefully with clear error if no baseline or no snapshots exist"
+      ]
+    }
+  ]
+}

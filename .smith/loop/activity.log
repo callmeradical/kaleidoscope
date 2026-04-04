@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 01:56:21] US-006 iteration 1: created failing tests for snapshot, diff, diffreport, cmd packages; all tests pass (go test ./...)
+[2026-04-04 02:00:16] US-006 iteration 2: all tests pass (go test ./... -count=1); all 7 acceptance criteria verified; story marked done
