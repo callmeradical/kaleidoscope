@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 03:32:35] US-002 iteration 1: created project/ and snapshot/ packages with full test suites; go test ./... passes
+[2026-04-04 03:36:12] Iteration 2: Implemented Phases 2-5 — audit_core, axtree_core, cmd/snapshot.go, cmd/history.go, util.go, usage.go, main.go wired; go build && go test ./... PASS
