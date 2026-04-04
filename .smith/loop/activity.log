@@ -1,0 +1,6 @@
+# Activity Log
+
+## Events
+
+[2026-04-04 02:30:31] iteration-1: wrote failing tests for US-002 (project/config_test.go, gitutil/gitutil_test.go, snapshot/manager_test.go) and stubs (project/config.go, gitutil/gitutil.go, snapshot/manager.go); go build passes, go test fails as expected
+[2026-04-04 02:35:34] Implemented US-002: all phase 1-5 code written and go test ./... passes

@@ -2,6 +2,29 @@
 
 ## US-002: Snapshot Capture and History
 
+### Run: kal-d6ce7-autofix-kal-7e88f-github-callmer-us-002 | Iteration 2 (implementation)
+
+**Status:** done
+
+**Commands run:**
+- `go build ./...` → PASS
+- `go test ./...` → PASS (project, gitutil, snapshot all green)
+
+**Files changed:**
+- `project/config.go` — implemented `Load()`: reads `.ks-project.json`, returns error with "init" hint if missing
+- `gitutil/gitutil.go` — implemented `ShortHash()`: runs `git rev-parse --short HEAD`, returns "" on any error
+- `snapshot/manager.go` — implemented all functions: `SnapshotsDir`, `SnapshotPath`, `URLSlug`, `URLDir`, `NewID`, `WriteManifest`, `ReadManifest`, `ListIDs` (descending), `ReadBaselines` (nil,nil on missing), `WriteBaselines`
+- `cmd/internal_audit.go` — new: `auditPage(page)` and `axTreePage(page)` helpers reusable by snapshot
+- `cmd/snapshot.go` — new: `RunSnapshot` — loads config, captures 4 breakpoints + audit + ax-tree per URL, writes manifest, auto-promotes baseline
+- `cmd/history.go` — new: `RunHistory` — lists snapshots newest-first with aggregate stats
+- `main.go` — added `snapshot` and `history` cases, updated usage string
+- `cmd/usage.go` — added usage entries for snapshot and history
+- `.gitignore` — replaced broad `.kaleidoscope/` with specific paths
+
+**Key fixes in iteration 2:**
+- `breakpoint` struct already defined in `cmd/breakpoints.go` with capitalized fields (`Name`, `Width`, `Height`) and variable `defaultBreakpoints` — reused instead of redefining
+- `node.Role.Value` / `node.Name.Value` are `gson.JSON` not `string` — used `.Str()` method to convert
+
 ### Run: kal-d6ce7-autofix-kal-7e88f-github-callmer-us-002 | Iteration 1 (tests-only)
 
 **Status:** in_progress (tests written, failing; implementation pending)
