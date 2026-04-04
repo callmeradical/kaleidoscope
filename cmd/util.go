@@ -43,7 +43,9 @@ func getNonFlagArgs(args []string) []string {
 			if a == "--selector" || a == "--output" || a == "--depth" ||
 				a == "--width" || a == "--height" || a == "--format" ||
 				a == "--quality" || a == "--wait-until" || a == "--min-size" ||
-				a == "--kind" || a == "--ref" {
+				a == "--kind" || a == "--ref" || a == "--screenshot-threshold" ||
+				a == "--baseline" || a == "--current" || a == "--output-dir" ||
+				a == "--url" || a == "--breakpoint" {
 				skip = true
 			}
 			continue
