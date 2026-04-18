@@ -264,6 +264,34 @@ func (s *Store) Get(id string) (*Manifest, error) {
 	return &m, nil
 }
 
+// LoadPathData loads the audit and ax-tree JSON for a specific path within a snapshot.
+func (s *Store) LoadPathData(snapshotID, urlPath string) (audit map[string]any, axTree map[string]any, err error) {
+	pathDir := sanitizePath(urlPath)
+	base := filepath.Join(s.snapshotsDir(), snapshotID, pathDir)
+
+	auditData, err := os.ReadFile(filepath.Join(base, "audit.json"))
+	if err != nil && !os.IsNotExist(err) {
+		return nil, nil, fmt.Errorf("reading audit for %s: %w", urlPath, err)
+	}
+	if err == nil {
+		if e := json.Unmarshal(auditData, &audit); e != nil {
+			return nil, nil, fmt.Errorf("parsing audit for %s: %w", urlPath, e)
+		}
+	}
+
+	axData, err := os.ReadFile(filepath.Join(base, "ax-tree.json"))
+	if err != nil && !os.IsNotExist(err) {
+		return nil, nil, fmt.Errorf("reading ax-tree for %s: %w", urlPath, err)
+	}
+	if err == nil {
+		if e := json.Unmarshal(axData, &axTree); e != nil {
+			return nil, nil, fmt.Errorf("parsing ax-tree for %s: %w", urlPath, e)
+		}
+	}
+
+	return audit, axTree, nil
+}
+
 // sanitizePath converts a URL path to a safe directory name.
 func sanitizePath(urlPath string) string {
 	if urlPath == "/" || urlPath == "" {

@@ -49,6 +49,7 @@ Project Configuration:
 Snapshots:
   snapshot                  Capture full interface state for all project URLs
   history                   List all snapshots in reverse chronological order
+  diff [snapshot-id]        Compare snapshot against baseline, report regressions
 
 Design System Catalog:
   catalog <url>              Crawl a design system site and build searchable index
@@ -144,6 +145,8 @@ func main() {
 		cmd.RunSnapshot(cmdArgs)
 	case "history":
 		cmd.RunHistory(cmdArgs)
+	case "diff":
+		cmd.RunDiff(cmdArgs)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown command: %s\nRun 'ks --help' for usage.\n", command)
 		os.Exit(2)
