@@ -547,6 +547,73 @@ Output:
 Notes:
   Skills are prefixed with ks- to namespace them.
   Invoke in Claude Code with /ks-design-review, /ks-build-component, etc.`,
+
+	"init": `ks init [--name <name>] [--base-url <url>] [--paths <p1,p2,...>]
+
+Initialize a .ks-project.json configuration file in the current directory.
+
+Options:
+  --name <name>         Project name (default: current directory name)
+  --base-url <url>      Base URL for the project (e.g., http://localhost:3000)
+  --paths <p1,p2,...>   Comma-separated list of paths to test (e.g., /,/about,/pricing)
+
+Default breakpoints:
+  mobile:   375x812
+  tablet:   768x1024
+  desktop:  1280x720
+  wide:     1920x1080
+
+Output:
+  { "ok": true, "result": { "name": "my-app", "baseUrl": "...", "paths": [...], "breakpoints": [...] } }
+
+Examples:
+  ks init
+  ks init --name my-app --base-url http://localhost:3000
+  ks init --name my-app --base-url http://localhost:3000 --paths /,/about,/pricing`,
+
+	"project-show": `ks project-show
+
+Display the current project configuration from .ks-project.json.
+
+Output:
+  { "ok": true, "result": { "name": "...", "baseUrl": "...", "paths": [...], "breakpoints": [...] } }
+
+Examples:
+  ks project-show
+
+Notes:
+  Requires a .ks-project.json in the current directory. Run 'ks init' first.`,
+
+	"project-add": `ks project-add <path> [path...]
+
+Add one or more paths to the project configuration.
+
+Arguments:
+  path    URL paths to add (e.g., /about /pricing)
+
+Output:
+  { "ok": true, "result": { "added": [...], "paths": [...] } }
+
+Examples:
+  ks project-add /about
+  ks project-add /about /pricing /contact
+
+Notes:
+  Duplicate paths are silently skipped.`,
+
+	"project-remove": `ks project-remove <path> [path...]
+
+Remove one or more paths from the project configuration.
+
+Arguments:
+  path    URL paths to remove
+
+Output:
+  { "ok": true, "result": { "removed": [...], "paths": [...] } }
+
+Examples:
+  ks project-remove /about
+  ks project-remove /about /pricing`,
 }
 
 // PrintUsage prints detailed usage for a command and returns true if --usage was found.

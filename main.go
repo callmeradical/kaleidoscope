@@ -40,6 +40,12 @@ UX Evaluation:
   spacing [selector]      Spacing consistency analysis
   report [options]        Generate HTML report with screenshots and findings
 
+Project Configuration:
+  init [options]             Initialize .ks-project.json in current directory
+  project-show              Show current project config
+  project-add <path...>     Add paths to project config
+  project-remove <path...>  Remove paths from project config
+
 Design System Catalog:
   catalog <url>              Crawl a design system site and build searchable index
   catalog-repo <repo-url>    Catalog from a git repository (tokens, icons, docs)
@@ -112,6 +118,14 @@ func main() {
 		cmd.RunBreakpoints(cmdArgs)
 	case "report":
 		cmd.RunReport(cmdArgs)
+	case "init":
+		cmd.RunInit(cmdArgs)
+	case "project-show":
+		cmd.RunProjectShow(cmdArgs)
+	case "project-add":
+		cmd.RunProjectAdd(cmdArgs)
+	case "project-remove":
+		cmd.RunProjectRemove(cmdArgs)
 	case "catalog":
 		cmd.RunCatalog(cmdArgs)
 	case "catalog-search":
