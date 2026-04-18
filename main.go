@@ -46,6 +46,10 @@ Project Configuration:
   project-add <path...>     Add paths to project config
   project-remove <path...>  Remove paths from project config
 
+Snapshots:
+  snapshot                  Capture full interface state for all project URLs
+  history                   List all snapshots in reverse chronological order
+
 Design System Catalog:
   catalog <url>              Crawl a design system site and build searchable index
   catalog-repo <repo-url>    Catalog from a git repository (tokens, icons, docs)
@@ -136,6 +140,10 @@ func main() {
 		cmd.RunCatalogRepo(cmdArgs)
 	case "install-skills":
 		cmd.RunInstallSkills(cmdArgs)
+	case "snapshot":
+		cmd.RunSnapshot(cmdArgs)
+	case "history":
+		cmd.RunHistory(cmdArgs)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown command: %s\nRun 'ks --help' for usage.\n", command)
 		os.Exit(2)
