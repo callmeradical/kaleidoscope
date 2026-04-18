@@ -292,6 +292,47 @@ func (s *Store) LoadPathData(snapshotID, urlPath string) (audit map[string]any, 
 	return audit, axTree, nil
 }
 
+// ScreenshotPaths returns a map of breakpoint name -> file path for all
+// screenshots stored under a given snapshot+urlPath. It does not read the
+// files; it just locates them.
+func (s *Store) ScreenshotPaths(snapshotID, urlPath string) (map[string]string, error) {
+	pathDir := sanitizePath(urlPath)
+	base := filepath.Join(s.snapshotsDir(), snapshotID, pathDir)
+
+	entries, err := os.ReadDir(base)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	result := make(map[string]string)
+	for _, e := range entries {
+		if e.IsDir() {
+			continue
+		}
+		name := e.Name()
+		ext := filepath.Ext(name)
+		if ext != ".png" {
+			continue
+		}
+		bp := strings.TrimSuffix(name, ext)
+		result[bp] = filepath.Join(base, name)
+	}
+	return result, nil
+}
+
+// DiffDir returns the path to the diffs subdirectory for a given comparison,
+// creating it if needed.
+func (s *Store) DiffDir(baselineID, targetID string) (string, error) {
+	dir := filepath.Join(s.Root, "diffs", baselineID+"_vs_"+targetID)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return "", err
+	}
+	return dir, nil
+}
+
 // sanitizePath converts a URL path to a safe directory name.
 func sanitizePath(urlPath string) string {
 	if urlPath == "/" || urlPath == "" {

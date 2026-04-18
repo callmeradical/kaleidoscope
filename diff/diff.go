@@ -20,10 +20,11 @@ type SnapshotData struct {
 
 // DiffResult is the top-level output of a comparison.
 type DiffResult struct {
-	HasRegressions bool                   `json:"hasRegressions"`
-	AuditDeltas    map[string]*AuditDelta `json:"auditDeltas"`
-	ElementChanges []ElementChange        `json:"elementChanges"`
-	Summary        Summary                `json:"summary"`
+	HasRegressions  bool                   `json:"hasRegressions"`
+	AuditDeltas     map[string]*AuditDelta `json:"auditDeltas"`
+	ElementChanges  []ElementChange        `json:"elementChanges"`
+	ScreenshotDiffs []ScreenshotDiffResult `json:"screenshotDiffs,omitempty"`
+	Summary         Summary                `json:"summary"`
 }
 
 // AuditDelta reports the change in a single audit category.
