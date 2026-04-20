@@ -528,6 +528,24 @@ Notes:
   The HTML report is self-contained with base64-embedded screenshots.
   Open it in any browser to view.`,
 
+	"install-hook": `ks install-hook [--force]
+
+Install a git pre-commit hook that runs snapshot and diff on every commit.
+
+Flags:
+  --force    Overwrite existing hook without warning
+
+Examples:
+  ks install-hook
+  ks install-hook --force
+
+Output:
+  {"ok":true,"command":"install-hook","result":{"hookPath":".git/hooks/pre-commit","overwrite":false}}
+
+Notes:
+  The hook is advisory and always exits 0, so it never blocks commits.
+  Requires .ks-project.json in the current directory.`,
+
 	"install-skills": `ks install-skills
 
 Install Claude Code skills for front-end design to ~/.claude/commands/.
